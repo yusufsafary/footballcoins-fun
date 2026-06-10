@@ -15,13 +15,10 @@
         extend: {
           colors: {
             midnight: '#070B1A',
-            'midnight-2': '#0D1426',
-            'midnight-3': '#111A30',
+            'm2': '#0D1426',
             gold: '#C9A84C',
-            'gold-light': '#E8C86A',
-            'gold-dark': '#A07830',
+            'gold-l': '#E8C86A',
             offwhite: '#F0EDE6',
-            'glass': 'rgba(255,255,255,0.04)',
           },
           fontFamily: {
             heading: ['Bricolage Grotesque', 'sans-serif'],
@@ -32,246 +29,144 @@
     }
   </script>
   <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      background-color: #070B1A;
+      background: #070B1A;
       color: #F0EDE6;
       font-family: 'Instrument Sans', sans-serif;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3, h4, h5 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-    }
+    h1,h2,h3,h4 { font-family: 'Bricolage Grotesque', sans-serif; }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar { width: 3px; height: 3px; }
     ::-webkit-scrollbar-track { background: #070B1A; }
-    ::-webkit-scrollbar-thumb { background: #C9A84C44; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #C9A84C33; border-radius: 4px; }
 
-    /* Glass card */
-    .glass-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-    }
-    .glass-card:hover {
-      border-color: rgba(201,168,76,0.35);
-      background: rgba(255,255,255,0.06);
-    }
-
-    /* Gold gradient text */
-    .gold-text {
-      background: linear-gradient(135deg, #E8C86A 0%, #C9A84C 50%, #A07830 100%);
+    /* ── Gold text ── */
+    .gt {
+      background: linear-gradient(135deg, #E8C86A 0%, #C9A84C 60%, #A07830 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    /* Hero stadium bg */
-    .hero-bg {
-      background:
-        linear-gradient(to bottom, rgba(7,11,26,0.55) 0%, rgba(7,11,26,0.75) 60%, #070B1A 100%),
-        radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Cdefs%3E%3CradialGradient id='a' cx='50%25' cy='50%25'%3E%3Cstop offset='0' stop-color='%23C9A84C' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='%23070B1A' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='%230D1426'/%3E%3Cellipse cx='400' cy='320' rx='350' ry='120' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.12'/%3E%3Cellipse cx='400' cy='320' rx='220' ry='75' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.1'/%3E%3Cellipse cx='400' cy='320' rx='100' ry='35' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.08'/%3E%3Crect x='340' y='255' width='120' height='65' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.15'/%3E%3Crect x='370' y='270' width='60' height='50' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.12'/%3E%3Cline x1='400' y1='255' x2='400' y2='320' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.1'/%3E%3Cline x1='50' y1='320' x2='750' y2='320' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.06'/%3E%3Crect x='50' y='100' width='700' height='280' fill='url(%23a)' opacity='.5'/%3E%3C/svg%3E") center/cover no-repeat;
+    .gt-stroke {
+      -webkit-text-stroke: 1.5px #C9A84C;
+      -webkit-text-fill-color: transparent;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ── Glass card ── */
+    .card {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(201,168,76,0.14);
+      border-radius: 16px;
+      transition: border-color .2s, background .2s;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes pulse-gold {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
-    }
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-    @keyframes countUp {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-24px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    .card:hover { border-color: rgba(201,168,76,0.32); background: rgba(255,255,255,0.055); }
 
-    .animate-fadeInUp { animation: fadeInUp 0.7s ease forwards; }
-    .animate-fadeIn { animation: fadeIn 0.5s ease forwards; }
-    .animate-pulse-gold { animation: pulse-gold 2s infinite; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* Btn gold */
+    /* ── Buttons ── */
     .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, #E8C86A 0%, #C9A84C 100%);
       color: #070B1A;
       font-family: 'Bricolage Grotesque', sans-serif;
       font-weight: 700;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-      position: relative;
-      overflow: hidden;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .btn-gold::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .btn-gold:hover::after { opacity: 1; }
-    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
-    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:active { transform: scale(0.97); }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(201,168,76,.32); }
 
-    .btn-outline {
-      border: 1px solid rgba(201,168,76,0.4);
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(201,168,76,.35);
       color: #E8C86A;
       font-family: 'Bricolage Grotesque', sans-serif;
       font-weight: 600;
-      border-radius: 12px;
-      transition: all 0.2s ease;
+      border-radius: 14px;
       background: transparent;
-    }
-    .btn-outline:hover { border-color: #C9A84C; background: rgba(201,168,76,0.08); transform: translateY(-1px); }
-    .btn-outline:active { transform: translateY(0); }
-
-    /* Matches scroll */
-    .matches-scroll {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 12px;
-    }
-    .matches-scroll::-webkit-scrollbar { height: 3px; }
-    .match-card {
-      min-width: 280px;
-      scroll-snap-align: start;
-      flex-shrink: 0;
-    }
-
-    /* Nation selector */
-    .nation-btn {
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.03);
       cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-family: 'Instrument Sans', sans-serif;
-      color: #F0EDE6;
+      transition: border-color .18s, background .18s, transform .18s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .nation-btn:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.06); }
-    .nation-btn.selected { border-color: #C9A84C; background: rgba(201,168,76,0.12); }
+    .btn-ghost:hover { border-color: #C9A84C; background: rgba(201,168,76,.07); transform: translateY(-1px); }
+    .btn-ghost:active { transform: scale(0.97); }
 
-    /* Accordion */
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
+    /* ── Top bar ── */
+    #topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 36px;
+      background: #C9A84C;
+      display: flex; align-items: center; justify-content: center;
     }
-    .accordion-content.open { max-height: 1000px; }
-
-    /* Leaderboard row hover */
-    .lb-row { transition: background 0.15s; }
-    .lb-row:hover { background: rgba(201,168,76,0.05); }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(7,11,26,0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
+    #topbar a {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: #070B1A;
+      text-decoration: none;
     }
-    .modal-backdrop.open { opacity: 1; pointer-events: all; }
-    .modal-box {
-      background: #0D1426;
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 24px;
-      width: 90%;
-      max-width: 420px;
-      transform: scale(0.95) translateY(8px);
-      transition: transform 0.25s ease, opacity 0.25s;
-      opacity: 0;
+    #topbar a:hover { opacity: .8; }
+
+    /* ── Nav ── */
+    #navbar {
+      position: fixed; top: 36px; left: 0; right: 0; z-index: 100;
+      transition: background .25s, border-color .25s;
     }
-    .modal-backdrop.open .modal-box { transform: scale(1) translateY(0); opacity: 1; }
+    #navbar.scrolled {
+      background: rgba(7,11,26,.94);
+      border-bottom: 1px solid rgba(201,168,76,.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    #logo-area { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 
-    /* Nav */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 0.3s, border-color 0.3s; }
-    nav.scrolled { background: rgba(7,11,26,0.92); border-bottom: 1px solid rgba(201,168,76,0.12); backdrop-filter: blur(16px); }
-
-    /* Logo click counter */
-    #logo-click-area { cursor: pointer; user-select: none; }
-
-    /* Predict badge */
-    .predict-badge {
-      display: inline-block;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.25);
-      color: #E8C86A;
-      font-size: 11px;
-      font-weight: 600;
-      font-family: 'Instrument Sans', sans-serif;
-      border-radius: 6px;
-      padding: 2px 8px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    /* ── Hero ── */
+    .hero-bg {
+      background:
+        linear-gradient(to bottom, rgba(7,11,26,.5) 0%, rgba(7,11,26,.78) 55%, #070B1A 100%),
+        radial-gradient(ellipse at 50% 38%, rgba(201,168,76,.07) 0%, transparent 62%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect width='800' height='500' fill='%230D1426'/%3E%3Cellipse cx='400' cy='310' rx='340' ry='115' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.11'/%3E%3Cellipse cx='400' cy='310' rx='210' ry='70' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.09'/%3E%3Cellipse cx='400' cy='310' rx='90' ry='30' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.07'/%3E%3Crect x='345' y='250' width='110' height='60' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.14'/%3E%3Crect x='372' y='264' width='56' height='46' fill='none' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.1'/%3E%3Cline x1='400' y1='250' x2='400' y2='310' stroke='%23C9A84C' stroke-width='1' stroke-opacity='.08'/%3E%3C/svg%3E") center/cover no-repeat;
+    }
+    .grid-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(201,168,76,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
+      background-size: 56px 56px;
     }
 
-    /* Nation badge */
-    #nation-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 13px;
-      color: #E8C86A;
-      font-family: 'Instrument Sans', sans-serif;
+    /* ── Ticker / pulse ── */
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; }
+      50% { opacity: .3; }
     }
+    .pulse-dot { animation: pulse-dot 1.6s ease infinite; }
 
-    /* Earn card icons */
-    .earn-icon {
-      width: 48px; height: 48px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+    .au { animation: fadeUp .65s ease forwards; }
+    .d1 { animation-delay: .1s; }
+    .d2 { animation-delay: .2s; }
+    .d3 { animation-delay: .3s; }
+    .d4 { animation-delay: .4s; }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
     }
-
-    /* Points shimmer */
-    .points-shimmer {
+    .shimmer {
       background: linear-gradient(90deg, #C9A84C 0%, #E8C86A 50%, #C9A84C 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
@@ -280,814 +175,852 @@
       animation: shimmer 2.5s linear infinite;
     }
 
-    /* Top 3 medals */
-    .rank-1 { color: #E8C86A; }
-    .rank-2 { color: #C0C0C0; }
-    .rank-3 { color: #CD7F32; }
-
-    @media (max-width: 640px) {
-      .match-card { min-width: 260px; }
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center;
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.22);
+      color: #E8C86A;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'Instrument Sans', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      padding: 3px 8px;
     }
+
+    /* ── Match scroll ── */
+    .match-scroll {
+      display: flex; gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+    .match-scroll::-webkit-scrollbar { height: 2px; }
+    .match-card { min-width: 240px; max-width: 260px; scroll-snap-align: start; flex-shrink: 0; }
+
+    /* ── Nation btn ── */
+    .nation-btn {
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      transition: all .18s;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px;
+      font-family: 'Instrument Sans', sans-serif;
+      color: #F0EDE6;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nation-btn:hover { border-color: rgba(201,168,76,.38); background: rgba(201,168,76,.06); }
+    .nation-btn.selected { border-color: #C9A84C; background: rgba(201,168,76,.11); }
+
+    /* ── Accordion ── */
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .38s ease; }
+    .acc-body.open { max-height: 900px; }
+    .acc-arrow { transition: transform .3s; }
+    .acc-arrow.open { transform: rotate(180deg); }
+
+    /* ── LB row ── */
+    .lb-row { transition: background .12s; }
+    .lb-row:hover { background: rgba(201,168,76,.04); }
+
+    /* ── Modal ── */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(7,11,26,.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s;
+    }
+    @media (min-width: 640px) {
+      .modal-bg { align-items: center; }
+    }
+    .modal-bg.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: #0E1628;
+      border: 1px solid rgba(201,168,76,.18);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-width: 440px;
+      padding: 28px 24px 36px;
+      transform: translateY(24px);
+      transition: transform .25s ease;
+    }
+    @media (min-width: 640px) {
+      .modal-box { border-radius: 24px; padding: 32px; transform: scale(.96) translateY(8px); }
+      .modal-bg.open .modal-box { transform: scale(1) translateY(0); }
+    }
+    .modal-bg.open .modal-box { transform: none; }
+
+    /* email input */
+    .email-input {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: 'Instrument Sans', sans-serif;
+      color: #F0EDE6;
+      outline: none;
+      transition: border-color .18s;
+      -webkit-appearance: none;
+    }
+    .email-input::placeholder { color: rgba(240,237,230,.28); }
+    .email-input:focus { border-color: rgba(201,168,76,.5); }
+
+    /* ── Earn icon ── */
+    .earn-icon {
+      width: 46px; height: 46px;
+      background: rgba(201,168,76,.09);
+      border: 1px solid rgba(201,168,76,.18);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Admin modal ── */
+    .admin-bg {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(7,11,26,.9);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s;
+    }
+    .admin-bg.open { opacity: 1; pointer-events: all; }
+    .admin-box {
+      background: #0E1628;
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 20px;
+      width: 92%; max-width: 400px;
+      padding: 28px 24px;
+      transform: scale(.95);
+      transition: transform .22s;
+    }
+    .admin-bg.open .admin-box { transform: scale(1); }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     TOP BAR — X ACCOUNT
+══════════════════════════════ -->
+<div id="topbar">
+  <a href="https://x.com/footballcoins_" target="_blank" rel="noopener">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#070B1A"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.845L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    Follow us @footballcoins_
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#070B1A" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+  </a>
+</div>
+
+<!-- ══════════════════════════════
+     NAV
+══════════════════════════════ -->
 <nav id="navbar">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <!-- Logo -->
-    <div id="logo-click-area" class="flex items-center gap-3" onclick="handleLogoClick()">
-      <!-- SVG Mark -->
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div id="logo-area" onclick="handleLogoClick()" class="flex items-center gap-2.5">
+      <svg width="32" height="32" viewBox="0 0 34 34" fill="none">
         <circle cx="17" cy="17" r="16" fill="#0D1426" stroke="#C9A84C" stroke-width="1.2"/>
-        <circle cx="17" cy="17" r="10" fill="none" stroke="#C9A84C" stroke-width="1"/>
-        <!-- Pentagon patches -->
-        <polygon points="17,7 20.5,12 17,15 13.5,12" fill="#C9A84C" opacity="0.85"/>
-        <polygon points="26,13 27,18 22,20 19,16" fill="#C9A84C" opacity="0.5"/>
-        <polygon points="8,13 7,18 12,20 15,16" fill="#C9A84C" opacity="0.5"/>
-        <polygon points="22,25 17,27 12,25 13,20 21,20" fill="#C9A84C" opacity="0.6"/>
+        <circle cx="17" cy="17" r="10" fill="none" stroke="#C9A84C" stroke-width=".9"/>
+        <polygon points="17,7 20.5,12 17,15 13.5,12" fill="#C9A84C" opacity=".85"/>
+        <polygon points="26,13 27,18 22,20 19,16" fill="#C9A84C" opacity=".5"/>
+        <polygon points="8,13 7,18 12,20 15,16" fill="#C9A84C" opacity=".5"/>
+        <polygon points="22,25 17,27 12,25 13,20 21,20" fill="#C9A84C" opacity=".6"/>
       </svg>
-      <div>
-        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.05em;" class="text-offwhite tracking-wide">FOOTBALL<span class="gold-text">COINS</span></span>
-        <div style="font-size:9px;letter-spacing:0.14em;color:#C9A84C88;font-family:'Instrument Sans',sans-serif;margin-top:-2px;">FUN</div>
+      <div style="line-height:1">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:.06em;">FOOTBALL<span class="gt">COINS</span></div>
+        <div style="font-size:8px;letter-spacing:.18em;color:#C9A84C77;font-family:'Instrument Sans',sans-serif;">.FUN</div>
       </div>
     </div>
 
-    <!-- Nav right -->
-    <div class="flex items-center gap-3">
-      <div id="nation-badge-nav" class="hidden sm:flex"></div>
-      <button onclick="openLoginModal()" class="btn-outline px-4 py-2 text-sm">Login</button>
+    <div class="flex items-center gap-2">
+      <!-- Nav links — hidden on small screens -->
+      <div class="hidden sm:flex items-center gap-1 mr-2">
+        <button onclick="scrollTo('matches')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Matches</button>
+        <button onclick="scrollTo('leaderboard')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Leaderboard</button>
+        <button onclick="scrollTo('schedule')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Schedule</button>
+      </div>
+      <div id="nation-nav" class="hidden sm:flex"></div>
+      <button onclick="openLogin()" class="btn-gold px-4 py-2 text-sm">Login</button>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════
+<!-- ══════════════════════════════
      HERO
-═══════════════════════════════════════ -->
-<section class="hero-bg min-h-screen flex flex-col justify-center pt-24 pb-20 relative overflow-hidden">
-  <!-- Grid overlay -->
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+══════════════════════════════ -->
+<section class="hero-bg relative overflow-hidden" style="padding-top: calc(36px + 56px + 32px); padding-bottom: 72px; min-height: 100svh; display:flex; align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="max-w-5xl mx-auto px-4 relative z-10 w-full">
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-    <div class="max-w-3xl">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 glass-card px-4 py-2 mb-8 animate-fadeInUp">
-        <span class="w-2 h-2 rounded-full bg-gold animate-pulse-gold inline-block"></span>
-        <span style="font-size:12px;letter-spacing:0.12em;color:#C9A84C;font-family:'Instrument Sans',sans-serif;font-weight:600;">FIFA WORLD CUP 2026 • USA · CANADA · MEXICO</span>
+    <!-- Live pill -->
+    <div class="inline-flex items-center gap-2 card px-3 py-1.5 mb-6 au">
+      <span class="w-1.5 h-1.5 rounded-full bg-gold-l pulse-dot"></span>
+      <span style="font-size:11px;letter-spacing:.1em;color:#C9A84C;font-family:'Instrument Sans',sans-serif;font-weight:600;">FIFA WORLD CUP 2026 · USA · CANADA · MEXICO</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="font-heading font-extrabold leading-[1.03] mb-5 au d1" style="font-size:clamp(40px,11vw,80px);">
+      Predict the<br/>
+      <span class="gt">World Cup.</span><br/>
+      Own the<br/>
+      <span class="gt-stroke">Leaderboard.</span>
+    </h1>
+
+    <p class="text-offwhite/60 mb-8 au d2" style="font-size:clamp(15px,4vw,18px);max-width:480px;line-height:1.65;">
+      Make predictions, earn points, support your nation, and compete during the biggest football tournament on earth.
+    </p>
+
+    <!-- CTAs — stack on mobile -->
+    <div class="flex flex-col sm:flex-row gap-3 au d3" style="max-width:360px;">
+      <button onclick="scrollTo('predict')" class="btn-gold py-4 text-base w-full sm:w-auto sm:px-7">
+        Start Predicting
+      </button>
+      <button onclick="scrollTo('matches')" class="btn-ghost py-4 text-base w-full sm:w-auto sm:px-7">
+        View Matches
+      </button>
+    </div>
+
+    <!-- Stats — 2×2 on mobile, row on desktop -->
+    <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-8 gap-y-5 mt-12 au d4">
+      <div>
+        <div class="text-3xl font-heading font-extrabold gt">48</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Group Matches</div>
       </div>
-
-      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-heading font-extrabold leading-[1.05] mb-6 animate-fadeInUp delay-100">
-        Predict the<br />
-        <span class="gold-text">World Cup.</span><br />
-        Own the<br />
-        <span style="-webkit-text-stroke: 1.5px #C9A84C; -webkit-text-fill-color: transparent;">Leaderboard.</span>
-      </h1>
-
-      <p class="text-offwhite/70 text-lg sm:text-xl leading-relaxed mb-10 max-w-xl animate-fadeInUp delay-200" style="font-family:'Instrument Sans',sans-serif;">
-        Make predictions, earn points, support your nation, and compete during the biggest football tournament on earth.
-      </p>
-
-      <div class="flex flex-wrap gap-4 animate-fadeInUp delay-300">
-        <button onclick="scrollToSection('predict')" class="btn-gold px-7 py-3.5 text-base">
-          Start Predicting
-        </button>
-        <button onclick="scrollToSection('matches')" class="btn-outline px-7 py-3.5 text-base">
-          View Matches
-        </button>
+      <div>
+        <div class="text-3xl font-heading font-extrabold gt">32</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Nations</div>
       </div>
-
-      <!-- Stats row -->
-      <div class="flex flex-wrap gap-8 mt-14 animate-fadeInUp delay-400">
-        <div>
-          <div class="text-2xl font-heading font-bold gold-text" data-count="48">48</div>
-          <div class="text-xs text-offwhite/50 mt-0.5 tracking-wide uppercase">Group Matches</div>
-        </div>
-        <div>
-          <div class="text-2xl font-heading font-bold gold-text" data-count="32">32</div>
-          <div class="text-xs text-offwhite/50 mt-0.5 tracking-wide uppercase">Nations</div>
-        </div>
-        <div>
-          <div class="text-2xl font-heading font-bold gold-text" data-count="1000">1,000+</div>
-          <div class="text-xs text-offwhite/50 mt-0.5 tracking-wide uppercase">Points to Win</div>
-        </div>
-        <div>
-          <div class="text-2xl font-heading font-bold gold-text" data-count="3">3</div>
-          <div class="text-xs text-offwhite/50 mt-0.5 tracking-wide uppercase">Host Nations</div>
-        </div>
+      <div>
+        <div class="text-3xl font-heading font-extrabold gt">1000+</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Points to Win</div>
+      </div>
+      <div>
+        <div class="text-3xl font-heading font-extrabold gt">3</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Host Nations</div>
       </div>
     </div>
   </div>
-
-  <!-- Scroll hint -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-    <div style="width:1px;height:40px;background:linear-gradient(to bottom,#C9A84C,transparent);"></div>
-    <span style="font-size:10px;letter-spacing:0.15em;color:#C9A84C;font-family:'Instrument Sans',sans-serif;">SCROLL</span>
-  </div>
 </section>
 
-<!-- ═══════════════════════════════════════
+<!-- ══════════════════════════════
      UPCOMING MATCHES
-═══════════════════════════════════════ -->
-<section id="matches" class="py-20 bg-midnight-2 relative overflow-hidden">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="reveal mb-12">
-      <div class="predict-badge mb-4">Live Schedule</div>
-      <h2 class="text-4xl sm:text-5xl font-heading font-bold mb-3">Upcoming Matches</h2>
-      <p class="text-offwhite/50 text-base" style="font-family:'Instrument Sans',sans-serif;">Predict before kick-off to earn points</p>
+══════════════════════════════ -->
+<section id="matches" class="py-14 sm:py-20" style="background:#0D1426;">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="reveal mb-8">
+      <div class="badge mb-3">Live Schedule</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Upcoming Matches</h2>
+      <p class="text-offwhite/40 text-sm mt-2">Predict before kick-off · swipe to browse</p>
     </div>
-
-    <div class="matches-scroll reveal">
-      <!-- Match Cards injected by JS -->
-    </div>
+    <div class="match-scroll reveal" id="match-cards"></div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
+<!-- ══════════════════════════════
      PREDICT & EARN
-═══════════════════════════════════════ -->
-<section id="predict" class="py-20 relative">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="reveal mb-14">
-      <div class="predict-badge mb-4">How it Works</div>
-      <h2 class="text-4xl sm:text-5xl font-heading font-bold mb-3">Predict &amp; Earn</h2>
-      <p class="text-offwhite/50 text-base" style="font-family:'Instrument Sans',sans-serif;">Three ways to prove you know football better than anyone</p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <!-- Card 1 -->
-      <div class="glass-card p-7 reveal flex flex-col gap-5 delay-100 group cursor-pointer">
-        <div class="earn-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="text-xl font-heading font-bold mb-2">Predict Match Winner</h3>
-          <p class="text-offwhite/55 text-sm leading-relaxed" style="font-family:'Instrument Sans',sans-serif;">Choose which team wins, draws, or loses. The backbone of every great prediction streak.</p>
-        </div>
-        <div class="mt-auto flex items-center justify-between">
-          <span class="text-xs text-offwhite/40 uppercase tracking-wider">Reward</span>
-          <span class="points-shimmer font-heading font-bold text-lg">+50 pts</span>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="glass-card p-7 reveal flex flex-col gap-5 delay-200 group cursor-pointer" style="border-color:rgba(201,168,76,0.3);">
-        <div class="earn-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="3" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/>
-            <rect x="13" y="3" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/>
-            <rect x="3" y="13" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/>
-            <rect x="13" y="13" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div>
-          <div class="inline-flex items-center gap-1.5 mb-3">
-            <h3 class="text-xl font-heading font-bold">Predict Exact Score</h3>
-            <span class="predict-badge text-xs">Popular</span>
-          </div>
-          <p class="text-offwhite/55 text-sm leading-relaxed" style="font-family:'Instrument Sans',sans-serif;">Nail the exact scoreline and watch your points skyrocket. High risk, maximum reward.</p>
-        </div>
-        <div class="mt-auto flex items-center justify-between">
-          <span class="text-xs text-offwhite/40 uppercase tracking-wider">Reward</span>
-          <span class="points-shimmer font-heading font-bold text-lg">+200 pts</span>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="glass-card p-7 reveal flex flex-col gap-5 delay-300 group cursor-pointer">
-        <div class="earn-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 15L8.5 9.5H15.5L12 15Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M4 7H20M4 7L7 3H17L20 7M4 7V20C4 20.5523 4.44772 21 5 21H19C19.5523 21 20 20.5523 20 20V7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="text-xl font-heading font-bold mb-2">Predict Tournament Champion</h3>
-          <p class="text-offwhite/55 text-sm leading-relaxed" style="font-family:'Instrument Sans',sans-serif;">One pick. One champion. Made before the tournament begins. The ultimate long game.</p>
-        </div>
-        <div class="mt-auto flex items-center justify-between">
-          <span class="text-xs text-offwhite/40 uppercase tracking-wider">Reward</span>
-          <span class="points-shimmer font-heading font-bold text-lg">+500 pts</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════
-     NATION SELECTOR
-═══════════════════════════════════════ -->
-<section id="nations" class="py-20 bg-midnight-2">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+══════════════════════════════ -->
+<section id="predict" class="py-14 sm:py-20">
+  <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-10">
-      <div class="predict-badge mb-4">Your Nation</div>
-      <h2 class="text-4xl sm:text-5xl font-heading font-bold mb-3">Choose Your Side</h2>
-      <p class="text-offwhite/50 text-base" style="font-family:'Instrument Sans',sans-serif;">Represent your nation and join thousands of fans competing for national glory</p>
+      <div class="badge mb-3">How it Works</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Predict &amp; Earn</h2>
+      <p class="text-offwhite/40 text-sm mt-2">Three ways to prove you know football better than anyone</p>
     </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 reveal" id="nation-grid">
-      <!-- Injected by JS -->
-    </div>
-    <div id="selected-nation-display" class="mt-6 hidden">
-      <div class="glass-card p-5 inline-flex items-center gap-4">
-        <span id="selected-flag" class="text-4xl"></span>
-        <div>
-          <div class="text-xs text-offwhite/40 uppercase tracking-wider mb-1">Your Nation</div>
-          <div id="selected-name" class="font-heading font-bold text-xl gold-text"></div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- Card 1 -->
+      <div class="card p-6 reveal flex flex-col gap-4">
+        <div class="earn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </div>
-        <button onclick="clearNation()" class="ml-4 text-offwhite/30 hover:text-offwhite/60 transition-colors text-xs">Change</button>
+        <div>
+          <h3 class="text-lg font-heading font-bold mb-1.5">Predict Match Winner</h3>
+          <p class="text-offwhite/50 text-sm leading-relaxed">Choose which team wins, draws, or loses. The backbone of every great streak.</p>
+        </div>
+        <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
+          <span class="shimmer font-heading font-bold text-lg">+50 pts</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card p-6 reveal flex flex-col gap-4" style="border-color:rgba(201,168,76,.28);">
+        <div class="earn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/><rect x="13" y="3" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/><rect x="3" y="13" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/><rect x="13" y="13" width="8" height="8" rx="2" stroke="#C9A84C" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <h3 class="text-lg font-heading font-bold">Predict Exact Score</h3>
+            <span class="badge">Hot</span>
+          </div>
+          <p class="text-offwhite/50 text-sm leading-relaxed">Nail the exact scoreline and watch your points skyrocket. High risk, max reward.</p>
+        </div>
+        <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
+          <span class="shimmer font-heading font-bold text-lg">+200 pts</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card p-6 reveal flex flex-col gap-4">
+        <div class="earn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 15L8.5 9.5H15.5L12 15Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7H20M4 7L7 3H17L20 7M4 7V20C4 20.5523 4.44772 21 5 21H19C19.5523 21 20 20.5523 20 20V7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <h3 class="text-lg font-heading font-bold mb-1.5">Predict Tournament Champion</h3>
+          <p class="text-offwhite/50 text-sm leading-relaxed">One pick. One champion. Made before kick-off. The ultimate long game.</p>
+        </div>
+        <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
+          <span class="shimmer font-heading font-bold text-lg">+500 pts</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     LEADERBOARD
-═══════════════════════════════════════ -->
-<section id="leaderboard" class="py-20 relative overflow-hidden">
-  <!-- BG decoration -->
-  <div style="position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;"></div>
-
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="reveal mb-12">
-      <div class="predict-badge mb-4">Global Rankings</div>
-      <h2 class="text-4xl sm:text-5xl font-heading font-bold mb-3">Leaderboard</h2>
-      <p class="text-offwhite/50 text-base" style="font-family:'Instrument Sans',sans-serif;">Top predictors from around the world</p>
+<!-- ══════════════════════════════
+     CHOOSE YOUR NATION
+══════════════════════════════ -->
+<section id="nations" class="py-14 sm:py-20" style="background:#0D1426;">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="reveal mb-8">
+      <div class="badge mb-3">Your Nation</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Choose Your Side</h2>
+      <p class="text-offwhite/40 text-sm mt-2">Represent your nation and compete for glory</p>
     </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 reveal" id="nation-grid"></div>
+    <div id="nation-display" class="mt-5 hidden">
+      <div class="card inline-flex items-center gap-4 p-4">
+        <span id="sel-flag" class="text-4xl"></span>
+        <div>
+          <div class="text-xs text-offwhite/35 uppercase tracking-wider mb-0.5">Your Nation</div>
+          <div id="sel-name" class="font-heading font-bold text-xl gt"></div>
+        </div>
+        <button onclick="clearNation()" class="ml-2 text-offwhite/25 hover:text-offwhite/50 text-xs transition-colors">Change</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="glass-card overflow-hidden reveal">
-      <!-- Header -->
-      <div class="grid grid-cols-12 px-6 py-3 border-b border-white/5 text-xs text-offwhite/30 uppercase tracking-wider font-semibold" style="font-family:'Instrument Sans',sans-serif;">
+<!-- ══════════════════════════════
+     LEADERBOARD
+══════════════════════════════ -->
+<section id="leaderboard" class="py-14 sm:py-20 relative overflow-hidden">
+  <div style="position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="reveal mb-8">
+      <div class="badge mb-3">Global Rankings</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Leaderboard</h2>
+      <p class="text-offwhite/40 text-sm mt-2">Top predictors from around the world</p>
+    </div>
+    <div class="card overflow-hidden reveal">
+      <div class="grid grid-cols-12 px-4 sm:px-6 py-3 border-b border-white/5 text-xs text-offwhite/25 uppercase tracking-wider font-semibold" style="font-family:'Instrument Sans',sans-serif;">
         <div class="col-span-1">#</div>
-        <div class="col-span-5">Player</div>
-        <div class="col-span-3">Nation</div>
+        <div class="col-span-6 sm:col-span-5">Player</div>
+        <div class="col-span-2 sm:col-span-3">Nation</div>
         <div class="col-span-3 text-right">Points</div>
       </div>
-      <!-- Rows injected by JS -->
-      <div id="leaderboard-rows"></div>
+      <div id="lb-rows"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     WORLD CUP SCHEDULE
-═══════════════════════════════════════ -->
-<section id="schedule" class="py-20 bg-midnight-2">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="reveal mb-12">
-      <div class="predict-badge mb-4">Official Timeline</div>
-      <h2 class="text-4xl sm:text-5xl font-heading font-bold mb-3">World Cup Schedule</h2>
-      <p class="text-offwhite/50 text-base" style="font-family:'Instrument Sans',sans-serif;">FIFA World Cup 2026 · June–July 2026</p>
+<!-- ══════════════════════════════
+     SCHEDULE
+══════════════════════════════ -->
+<section id="schedule" class="py-14 sm:py-20" style="background:#0D1426;">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="reveal mb-8">
+      <div class="badge mb-3">Official Timeline</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">World Cup Schedule</h2>
+      <p class="text-offwhite/40 text-sm mt-2">FIFA World Cup 2026 · June – July 2026</p>
     </div>
-
-    <div class="flex flex-col gap-3 reveal" id="schedule-accordion">
-      <!-- Injected by JS -->
-    </div>
+    <div class="flex flex-col gap-2.5 reveal" id="schedule-acc"></div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
+<!-- ══════════════════════════════
      FOOTER
-═══════════════════════════════════════ -->
-<footer class="border-t border-white/5 py-12">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-8">
-      <!-- Logo -->
-      <div class="flex items-center gap-3">
-        <svg width="28" height="28" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+══════════════════════════════ -->
+<footer class="border-t border-white/5 py-10">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+      <div class="flex items-center gap-2.5">
+        <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
           <circle cx="17" cy="17" r="16" fill="#0D1426" stroke="#C9A84C" stroke-width="1.2"/>
-          <circle cx="17" cy="17" r="10" fill="none" stroke="#C9A84C" stroke-width="1"/>
-          <polygon points="17,7 20.5,12 17,15 13.5,12" fill="#C9A84C" opacity="0.85"/>
-          <polygon points="26,13 27,18 22,20 19,16" fill="#C9A84C" opacity="0.5"/>
-          <polygon points="8,13 7,18 12,20 15,16" fill="#C9A84C" opacity="0.5"/>
-          <polygon points="22,25 17,27 12,25 13,20 21,20" fill="#C9A84C" opacity="0.6"/>
+          <circle cx="17" cy="17" r="10" fill="none" stroke="#C9A84C" stroke-width=".9"/>
+          <polygon points="17,7 20.5,12 17,15 13.5,12" fill="#C9A84C" opacity=".85"/>
+          <polygon points="26,13 27,18 22,20 19,16" fill="#C9A84C" opacity=".5"/>
+          <polygon points="8,13 7,18 12,20 15,16" fill="#C9A84C" opacity=".5"/>
+          <polygon points="22,25 17,27 12,25 13,20 21,20" fill="#C9A84C" opacity=".6"/>
         </svg>
-        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.06em;" class="text-offwhite">FOOTBALL<span class="gold-text">COINS</span><span style="color:#C9A84C55;margin-left:3px;">.FUN</span></span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;">FOOTBALL<span class="gt">COINS</span><span style="color:#C9A84C44;margin-left:2px;">.FUN</span></span>
       </div>
-
-      <!-- Links -->
-      <nav class="flex gap-6">
-        <a onclick="scrollToSection('matches')" class="text-offwhite/40 hover:text-gold-light transition-colors text-sm cursor-pointer" style="font-family:'Instrument Sans',sans-serif;">Matches</a>
-        <a onclick="scrollToSection('leaderboard')" class="text-offwhite/40 hover:text-gold-light transition-colors text-sm cursor-pointer" style="font-family:'Instrument Sans',sans-serif;">Leaderboard</a>
-        <a onclick="scrollToSection('schedule')" class="text-offwhite/40 hover:text-gold-light transition-colors text-sm cursor-pointer" style="font-family:'Instrument Sans',sans-serif;">Schedule</a>
-      </nav>
-
-      <p class="text-offwhite/25 text-xs" style="font-family:'Instrument Sans',sans-serif;">FootballCoins.fun © 2026</p>
+      <div class="flex items-center gap-5">
+        <button onclick="scrollTo('matches')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Matches</button>
+        <button onclick="scrollTo('leaderboard')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Leaderboard</button>
+        <button onclick="scrollTo('schedule')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Schedule</button>
+        <a href="https://x.com/footballcoins_" target="_blank" rel="noopener" class="text-offwhite/30 hover:text-gold-l transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.845L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <p class="text-offwhite/20 text-xs" style="font-family:'Instrument Sans',sans-serif;">FootballCoins.fun © 2026</p>
     </div>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════
-     LOGIN MODAL
-═══════════════════════════════════════ -->
-<div id="login-modal" class="modal-backdrop" onclick="handleModalBackdropClick(event)">
-  <div class="modal-box p-8">
-    <div class="flex items-center justify-between mb-7">
-      <h2 class="text-2xl font-heading font-bold">Join the Game</h2>
-      <button onclick="closeLoginModal()" class="text-offwhite/30 hover:text-offwhite transition-colors">
+<!-- ══════════════════════════════
+     LOGIN MODAL — email only
+══════════════════════════════ -->
+<div id="login-modal" class="modal-bg" onclick="handleLoginBg(event)">
+  <div class="modal-box">
+    <!-- Handle bar (mobile) -->
+    <div class="w-10 h-1 rounded-full bg-white/10 mx-auto mb-6 sm:hidden"></div>
+
+    <div class="flex items-start justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-heading font-bold">Join the Game</h2>
+        <p class="text-offwhite/40 text-sm mt-1" style="font-family:'Instrument Sans',sans-serif;">Enter your email to get early access</p>
+      </div>
+      <button onclick="closeLogin()" class="text-offwhite/25 hover:text-offwhite/60 transition-colors mt-1 ml-4 flex-shrink-0">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
 
-    <div class="glass-card p-5 mb-6 text-center">
-      <div class="text-3xl mb-2">🏆</div>
-      <p class="text-offwhite/60 text-sm leading-relaxed" style="font-family:'Instrument Sans',sans-serif;">
-        <span class="text-gold font-semibold">Authentication coming soon.</span><br/>
-        Full login with Google, X, and Email will be live before the World Cup 2026 kick-off.
+    <!-- Trophy line -->
+    <div class="flex items-center gap-3 mb-5 card p-3.5">
+      <span class="text-2xl">🏆</span>
+      <p class="text-sm text-offwhite/55 leading-snug" style="font-family:'Instrument Sans',sans-serif;">
+        Be first to predict when World Cup 2026 kicks off. <span class="text-gold-l font-semibold">Early access is open now.</span>
       </p>
     </div>
 
-    <div class="flex flex-col gap-3">
-      <button class="w-full btn-outline py-3.5 text-sm flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        Continue with Google
+    <!-- Email form -->
+    <form id="email-form" onsubmit="submitEmail(event)" class="flex flex-col gap-3">
+      <input
+        id="login-email"
+        type="email"
+        class="email-input"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+        inputmode="email"
+      />
+      <button type="submit" class="btn-gold w-full py-4 text-base">
+        Get Early Access
       </button>
-      <button class="w-full btn-outline py-3.5 text-sm flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.845L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Continue with X
-      </button>
-      <button class="w-full btn-outline py-3.5 text-sm flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-        Continue with Email
-      </button>
+    </form>
+
+    <div id="email-success" class="hidden text-center py-4">
+      <div class="text-3xl mb-2">✅</div>
+      <p class="font-heading font-bold text-lg mb-1">You're on the list!</p>
+      <p class="text-offwhite/45 text-sm" style="font-family:'Instrument Sans',sans-serif;">We'll notify you when the platform goes live.</p>
     </div>
+
+    <p class="text-center text-xs text-offwhite/20 mt-4" style="font-family:'Instrument Sans',sans-serif;">No spam. Just football.</p>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     ADMIN SETTINGS MODAL
-═══════════════════════════════════════ -->
-<div id="admin-modal" class="modal-backdrop" onclick="handleAdminBackdropClick(event)">
-  <div class="modal-box p-8">
+<!-- ══════════════════════════════
+     ADMIN MODAL (logo ×5)
+══════════════════════════════ -->
+<div id="admin-modal" class="admin-bg" onclick="handleAdminBg(event)">
+  <div class="admin-box">
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h2 class="text-xl font-heading font-bold">Admin Settings</h2>
-        <p class="text-xs text-offwhite/30 mt-0.5" style="font-family:'Instrument Sans',sans-serif;">Internal configuration panel</p>
+        <h3 class="font-heading font-bold text-lg">Admin Settings</h3>
+        <p class="text-xs text-offwhite/30 mt-0.5">Internal configuration</p>
       </div>
-      <button onclick="closeAdminModal()" class="text-offwhite/30 hover:text-offwhite transition-colors">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <button onclick="closeAdmin()" class="text-offwhite/25 hover:text-offwhite/60 transition-colors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-
-    <div class="flex flex-col gap-5">
-      <div class="flex items-center justify-between py-3 border-b border-white/5">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center justify-between py-3 border-b border-white/6">
         <div>
-          <div class="text-sm font-semibold" style="font-family:'Instrument Sans',sans-serif;">Enable Authentication</div>
-          <div class="text-xs text-offwhite/35 mt-0.5">Activates Supabase auth flow</div>
+          <div class="text-sm font-semibold">Enable Auth</div>
+          <div class="text-xs text-offwhite/30 mt-0.5">Activates Supabase auth flow</div>
         </div>
-        <button id="auth-toggle" onclick="toggleAuth()" class="relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none bg-white/10">
-          <span id="auth-toggle-knob" class="absolute left-1 top-1 w-4 h-4 rounded-full bg-offwhite/50 transition-transform duration-200"></span>
+        <button id="auth-toggle" onclick="toggleAuth()" class="relative w-11 h-6 rounded-full transition-colors bg-white/10 focus:outline-none flex-shrink-0">
+          <span id="auth-knob" class="absolute left-1 top-1 w-4 h-4 rounded-full bg-offwhite/40 transition-transform"></span>
         </button>
       </div>
-
       <div>
-        <label class="text-xs text-offwhite/40 uppercase tracking-wider block mb-2">Supabase URL</label>
-        <input id="admin-supabase-url" type="text" placeholder="https://xxxx.supabase.co"
-          class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-white/20 focus:outline-none focus:border-gold/40 transition-colors"
-          style="font-family:'Instrument Sans',sans-serif;" />
+        <label class="block text-xs text-offwhite/35 uppercase tracking-wider mb-1.5">Supabase URL</label>
+        <input id="sb-url" type="text" placeholder="https://xxxx.supabase.co" class="email-input text-sm" style="padding:11px 14px;" />
       </div>
       <div>
-        <label class="text-xs text-offwhite/40 uppercase tracking-wider block mb-2">Supabase Anon Key</label>
-        <input id="admin-supabase-key" type="password" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
-          class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-offwhite placeholder-white/20 focus:outline-none focus:border-gold/40 transition-colors"
-          style="font-family:'Instrument Sans',sans-serif;" />
+        <label class="block text-xs text-offwhite/35 uppercase tracking-wider mb-1.5">Anon Key</label>
+        <input id="sb-key" type="password" placeholder="eyJ..." class="email-input text-sm" style="padding:11px 14px;" />
       </div>
-      <button onclick="saveAdminSettings()" class="btn-gold py-3 text-sm w-full">Save Settings</button>
+      <button onclick="saveAdmin()" class="btn-gold w-full py-3 text-sm">Save Settings</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     SCRIPT
+══════════════════════════════ -->
 <script>
-// ─── Settings ─────────────────────────────────────────────────
-const SETTINGS = {
-  authEnabled: false,
-  supabaseUrl: "",
-  supabaseAnonKey: ""
-};
+const SETTINGS = { authEnabled: false, supabaseUrl: '', supabaseAnonKey: '' };
 
-// ─── Data ─────────────────────────────────────────────────────
 const NATIONS = [
-  { name: "Argentina", flag: "🇦🇷", code: "ARG" },
-  { name: "Brazil",    flag: "🇧🇷", code: "BRA" },
-  { name: "France",    flag: "🇫🇷", code: "FRA" },
-  { name: "England",   flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", code: "ENG" },
-  { name: "Germany",   flag: "🇩🇪", code: "GER" },
-  { name: "Spain",     flag: "🇪🇸", code: "ESP" },
-  { name: "Portugal",  flag: "🇵🇹", code: "POR" },
-  { name: "USA",       flag: "🇺🇸", code: "USA" },
-  { name: "Mexico",    flag: "🇲🇽", code: "MEX" },
-  { name: "Morocco",   flag: "🇲🇦", code: "MAR" },
+  { name:'Argentina', flag:'🇦🇷', code:'ARG' },
+  { name:'Brazil',    flag:'🇧🇷', code:'BRA' },
+  { name:'France',    flag:'🇫🇷', code:'FRA' },
+  { name:'England',   flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', code:'ENG' },
+  { name:'Germany',   flag:'🇩🇪', code:'GER' },
+  { name:'Spain',     flag:'🇪🇸', code:'ESP' },
+  { name:'Portugal',  flag:'🇵🇹', code:'POR' },
+  { name:'USA',       flag:'🇺🇸', code:'USA' },
+  { name:'Mexico',    flag:'🇲🇽', code:'MEX' },
+  { name:'Morocco',   flag:'🇲🇦', code:'MAR' },
 ];
 
 const MATCHES = [
-  { teamA: "🇺🇸 USA",       teamB: "🇲🇽 Mexico",    date: "Jun 12", time: "20:00", stadium: "MetLife Stadium, NJ",       prediction: null },
-  { teamA: "🇧🇷 Brazil",    teamB: "🇦🇷 Argentina", date: "Jun 14", time: "21:00", stadium: "AT&T Stadium, TX",           prediction: null },
-  { teamA: "🇫🇷 France",    teamB: "🇩🇪 Germany",   date: "Jun 15", time: "18:00", stadium: "SoFi Stadium, LA",           prediction: null },
-  { teamA: "🇪🇸 Spain",     teamB: "🇵🇹 Portugal",  date: "Jun 16", time: "21:00", stadium: "Levi's Stadium, SF",         prediction: null },
-  { teamA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England",  teamB: "🇯🇵 Japan",    date: "Jun 17", time: "20:00", stadium: "Estadio Azteca, CDMX",     prediction: null },
-  { teamA: "🇳🇱 Netherlands",teamB: "🇸🇳 Senegal",  date: "Jun 18", time: "17:00", stadium: "BC Place, Vancouver",        prediction: null },
-  { teamA: "🇨🇦 Canada",    teamB: "🇲🇦 Morocco",   date: "Jun 19", time: "19:00", stadium: "BMO Field, Toronto",         prediction: null },
-  { teamA: "🇮🇹 Italy",     teamB: "🇭🇷 Croatia",   date: "Jun 20", time: "21:00", stadium: "Mercedes-Benz Stadium, ATL", prediction: null },
+  { a:'🇺🇸 USA',         b:'🇲🇽 Mexico',     date:'Jun 12', time:'20:00', venue:'MetLife Stadium, NJ' },
+  { a:'🇧🇷 Brazil',      b:'🇦🇷 Argentina',  date:'Jun 14', time:'21:00', venue:'AT&T Stadium, TX' },
+  { a:'🇫🇷 France',      b:'🇩🇪 Germany',    date:'Jun 15', time:'18:00', venue:'SoFi Stadium, LA' },
+  { a:'🇪🇸 Spain',       b:'🇵🇹 Portugal',   date:'Jun 16', time:'21:00', venue:"Levi's Stadium, SF" },
+  { a:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 England',    b:'🇯🇵 Japan',      date:'Jun 17', time:'20:00', venue:'Estadio Azteca, CDMX' },
+  { a:'🇳🇱 Netherlands', b:'🇸🇳 Senegal',    date:'Jun 18', time:'17:00', venue:'BC Place, Vancouver' },
+  { a:'🇨🇦 Canada',      b:'🇲🇦 Morocco',    date:'Jun 19', time:'19:00', venue:'BMO Field, Toronto' },
+  { a:'🇮🇹 Italy',       b:'🇭🇷 Croatia',    date:'Jun 20', time:'21:00', venue:'Mercedes-Benz Stadium, ATL' },
 ];
 
-const LEADERBOARD_DATA = [
-  { rank:1,  name: "CristianoFan99",  flag: "🇵🇹", nation: "Portugal", points: 2840 },
-  { rank:2,  name: "SambaKing",       flag: "🇧🇷", nation: "Brazil",   points: 2615 },
-  { rank:3,  name: "ThreeLionsFC",    flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", nation: "England",  points: 2490 },
-  { rank:4,  name: "LaRojaBoss",      flag: "🇪🇸", nation: "Spain",    points: 2330 },
-  { rank:5,  name: "AlbicelestePro",  flag: "🇦🇷", nation: "Argentina",points: 2210 },
-  { rank:6,  name: "USSoccerFan",     flag: "🇺🇸", nation: "USA",      points: 2105 },
-  { rank:7,  name: "BleusBrigade",    flag: "🇫🇷", nation: "France",   points: 1980 },
-  { rank:8,  name: "AtlasLion_MAR",   flag: "🇲🇦", nation: "Morocco",  points: 1870 },
-  { rank:9,  name: "TigresMex",       flag: "🇲🇽", nation: "Mexico",   points: 1755 },
-  { rank:10, name: "DeutschlandGT",   flag: "🇩🇪", nation: "Germany",  points: 1640 },
+const LB = [
+  { rank:1,  name:'CristianoFan99', flag:'🇵🇹', nation:'Portugal',  pts:2840 },
+  { rank:2,  name:'SambaKing',      flag:'🇧🇷', nation:'Brazil',    pts:2615 },
+  { rank:3,  name:'ThreeLionsFC',   flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', nation:'England',   pts:2490 },
+  { rank:4,  name:'LaRojaBoss',     flag:'🇪🇸', nation:'Spain',     pts:2330 },
+  { rank:5,  name:'AlbiPro',        flag:'🇦🇷', nation:'Argentina', pts:2210 },
+  { rank:6,  name:'USSoccerFan',    flag:'🇺🇸', nation:'USA',       pts:2105 },
+  { rank:7,  name:'BleusBrigade',   flag:'🇫🇷', nation:'France',    pts:1980 },
+  { rank:8,  name:'AtlasLion_MAR',  flag:'🇲🇦', nation:'Morocco',   pts:1870 },
+  { rank:9,  name:'TigresMex',      flag:'🇲🇽', nation:'Mexico',    pts:1755 },
+  { rank:10, name:'DeutschlandGT',  flag:'🇩🇪', nation:'Germany',   pts:1640 },
 ];
 
-const SCHEDULE_DATA = [
-  {
-    stage: "Group Stage",
-    dates: "Jun 12 – Jul 2, 2026",
-    icon: "⚽",
-    matches: [
-      { a: "🇺🇸 USA", b: "🇲🇽 Mexico", date: "Jun 12", venue: "MetLife Stadium" },
-      { a: "🇧🇷 Brazil", b: "🇦🇷 Argentina", date: "Jun 14", venue: "AT&T Stadium" },
-      { a: "🇫🇷 France", b: "🇩🇪 Germany", date: "Jun 15", venue: "SoFi Stadium" },
-      { a: "🇪🇸 Spain", b: "🇵🇹 Portugal", date: "Jun 16", venue: "Levi's Stadium" },
-    ]
-  },
-  {
-    stage: "Round of 32",
-    dates: "Jul 4 – Jul 8, 2026",
-    icon: "🏟️",
-    matches: [
-      { a: "Group A Winner", b: "Group B Runner-up", date: "Jul 4", venue: "MetLife Stadium" },
-      { a: "Group C Winner", b: "Group D Runner-up", date: "Jul 5", venue: "AT&T Stadium" },
-      { a: "Group E Winner", b: "Group F Runner-up", date: "Jul 6", venue: "Estadio Azteca" },
-      { a: "Group G Winner", b: "Group H Runner-up", date: "Jul 8", venue: "SoFi Stadium" },
-    ]
-  },
-  {
-    stage: "Round of 16",
-    dates: "Jul 11 – Jul 14, 2026",
-    icon: "🎯",
-    matches: [
-      { a: "R32 Winner 1", b: "R32 Winner 2", date: "Jul 11", venue: "MetLife Stadium" },
-      { a: "R32 Winner 3", b: "R32 Winner 4", date: "Jul 12", venue: "AT&T Stadium" },
-      { a: "R32 Winner 5", b: "R32 Winner 6", date: "Jul 13", venue: "SoFi Stadium" },
-      { a: "R32 Winner 7", b: "R32 Winner 8", date: "Jul 14", venue: "Levi's Stadium" },
-    ]
-  },
-  {
-    stage: "Quarter Finals",
-    dates: "Jul 17 – Jul 19, 2026",
-    icon: "🔥",
-    matches: [
-      { a: "QF1", b: "QF2", date: "Jul 17", venue: "MetLife Stadium" },
-      { a: "QF3", b: "QF4", date: "Jul 18", venue: "AT&T Stadium" },
-      { a: "QF5", b: "QF6", date: "Jul 19", venue: "SoFi Stadium" },
-      { a: "QF7", b: "QF8", date: "Jul 19", venue: "Levi's Stadium" },
-    ]
-  },
-  {
-    stage: "Semi Finals",
-    dates: "Jul 22 – Jul 23, 2026",
-    icon: "⚡",
-    matches: [
-      { a: "SF1", b: "SF2", date: "Jul 22", venue: "MetLife Stadium" },
-      { a: "SF3", b: "SF4", date: "Jul 23", venue: "AT&T Stadium" },
-    ]
-  },
-  {
-    stage: "Final",
-    dates: "Jul 26, 2026",
-    icon: "🏆",
-    matches: [
-      { a: "Semi-Final Winner 1", b: "Semi-Final Winner 2", date: "Jul 26", venue: "MetLife Stadium, NJ" },
-    ]
-  },
+const SCHEDULE = [
+  { stage:'Group Stage',    dates:'Jun 12 – Jul 2, 2026',   icon:'⚽', matches:[
+    { a:'🇺🇸 USA', b:'🇲🇽 Mexico', date:'Jun 12', venue:'MetLife Stadium' },
+    { a:'🇧🇷 Brazil', b:'🇦🇷 Argentina', date:'Jun 14', venue:'AT&T Stadium' },
+    { a:'🇫🇷 France', b:'🇩🇪 Germany', date:'Jun 15', venue:'SoFi Stadium' },
+    { a:'🇪🇸 Spain', b:'🇵🇹 Portugal', date:'Jun 16', venue:"Levi's Stadium" },
+  ]},
+  { stage:'Round of 32',    dates:'Jul 4 – Jul 8, 2026',    icon:'🏟️', matches:[
+    { a:'Group A Winner', b:'Group B Runner-up', date:'Jul 4', venue:'MetLife Stadium' },
+    { a:'Group C Winner', b:'Group D Runner-up', date:'Jul 5', venue:'AT&T Stadium' },
+    { a:'Group E Winner', b:'Group F Runner-up', date:'Jul 6', venue:'Estadio Azteca' },
+    { a:'Group G Winner', b:'Group H Runner-up', date:'Jul 8', venue:'SoFi Stadium' },
+  ]},
+  { stage:'Round of 16',    dates:'Jul 11 – Jul 14, 2026',  icon:'🎯', matches:[
+    { a:'R32 Winner 1', b:'R32 Winner 2', date:'Jul 11', venue:'MetLife Stadium' },
+    { a:'R32 Winner 3', b:'R32 Winner 4', date:'Jul 12', venue:'AT&T Stadium' },
+    { a:'R32 Winner 5', b:'R32 Winner 6', date:'Jul 13', venue:'SoFi Stadium' },
+    { a:'R32 Winner 7', b:'R32 Winner 8', date:'Jul 14', venue:"Levi's Stadium" },
+  ]},
+  { stage:'Quarter Finals', dates:'Jul 17 – Jul 19, 2026',  icon:'🔥', matches:[
+    { a:'QF1 Winner', b:'QF2 Winner', date:'Jul 17', venue:'MetLife Stadium' },
+    { a:'QF3 Winner', b:'QF4 Winner', date:'Jul 18', venue:'AT&T Stadium' },
+    { a:'QF5 Winner', b:'QF6 Winner', date:'Jul 19', venue:'SoFi Stadium' },
+    { a:'QF7 Winner', b:'QF8 Winner', date:'Jul 19', venue:"Levi's Stadium" },
+  ]},
+  { stage:'Semi Finals',    dates:'Jul 22 – Jul 23, 2026',  icon:'⚡', matches:[
+    { a:'SF1', b:'SF2', date:'Jul 22', venue:'MetLife Stadium' },
+    { a:'SF3', b:'SF4', date:'Jul 23', venue:'AT&T Stadium' },
+  ]},
+  { stage:'Final',          dates:'Jul 26, 2026',            icon:'🏆', matches:[
+    { a:'Semi-Final Winner 1', b:'Semi-Final Winner 2', date:'Jul 26', venue:'MetLife Stadium, NJ' },
+  ]},
 ];
 
-// ─── State ─────────────────────────────────────────────────────
-let logoClickCount = 0;
-let logoClickTimer = null;
-let userPredictions = JSON.parse(localStorage.getItem('fc_predictions') || '{}');
-let userNation = JSON.parse(localStorage.getItem('fc_nation') || 'null');
-let adminSettings = JSON.parse(localStorage.getItem('fc_admin') || 'null');
+let predictions = JSON.parse(localStorage.getItem('fc_pred') || '{}');
+let nation = JSON.parse(localStorage.getItem('fc_nation') || 'null');
+let logoClicks = 0, logoTimer = null;
 
-if (adminSettings) {
-  Object.assign(SETTINGS, adminSettings);
-}
+const saved = JSON.parse(localStorage.getItem('fc_admin') || 'null');
+if (saved) Object.assign(SETTINGS, saved);
 
-// ─── Init ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderMatches();
   renderNations();
-  renderLeaderboard();
+  renderLB();
   renderSchedule();
   initNation();
-  initAdminUI();
-  initScrollReveal();
-  initNavScroll();
+  syncAdminUI();
+  setupReveal();
+  setupNavScroll();
 });
 
-// ─── Nav scroll ─────────────────────────────────────────────────
-function initNavScroll() {
+function setupNavScroll() {
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
 }
 
-// ─── Scroll reveal ──────────────────────────────────────────────
-function initScrollReveal() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function setupReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
-function scrollToSection(id) {
+function scrollTo(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!el) return;
+  const offset = 36 + 56 + 12;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
 }
 
-// ─── Render Matches ─────────────────────────────────────────────
+// ── Matches ─────────────────────────────────
 function renderMatches() {
-  const container = document.querySelector('.matches-scroll');
-  container.innerHTML = MATCHES.map((m, i) => {
-    const predicted = userPredictions[i];
+  const c = document.getElementById('match-cards');
+  c.innerHTML = MATCHES.map((m, i) => {
+    const done = !!predictions[i];
+    const [flagA, ...nameA] = m.a.split(' ');
+    const [flagB, ...nameB] = m.b.split(' ');
     return `
-    <div class="match-card glass-card p-5 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-1" style="border-radius:16px;">
+    <div class="match-card card p-4 flex flex-col gap-3 hover:-translate-y-0.5 transition-transform">
       <div class="flex items-center justify-between">
-        <span class="text-xs text-gold/70 uppercase tracking-wider font-semibold" style="font-family:'Instrument Sans',sans-serif;">${m.date} · ${m.time}</span>
-        ${predicted ? '<span class="predict-badge">Predicted</span>' : ''}
+        <span class="text-xs font-semibold" style="color:#C9A84C;font-family:'Instrument Sans',sans-serif;">${m.date} · ${m.time}</span>
+        ${done ? '<span class="badge" style="font-size:9px;">✓ Predicted</span>' : ''}
       </div>
-      <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center justify-between gap-2">
         <div class="flex flex-col items-center gap-1 flex-1">
-          <span class="text-3xl">${m.teamA.split(' ')[0]}</span>
-          <span class="text-xs text-center text-offwhite/70 font-medium" style="font-family:'Instrument Sans',sans-serif;">${m.teamA.split(' ').slice(1).join(' ')}</span>
+          <span class="text-3xl">${flagA}</span>
+          <span class="text-xs text-offwhite/65 text-center leading-tight" style="font-family:'Instrument Sans',sans-serif;">${nameA.join(' ')}</span>
         </div>
-        <div class="flex flex-col items-center gap-0.5">
-          <span class="font-heading font-bold text-lg text-offwhite/30">VS</span>
-        </div>
+        <span class="text-sm font-heading font-bold text-offwhite/20">VS</span>
         <div class="flex flex-col items-center gap-1 flex-1">
-          <span class="text-3xl">${m.teamB.split(' ')[0]}</span>
-          <span class="text-xs text-center text-offwhite/70 font-medium" style="font-family:'Instrument Sans',sans-serif;">${m.teamB.split(' ').slice(1).join(' ')}</span>
+          <span class="text-3xl">${flagB}</span>
+          <span class="text-xs text-offwhite/65 text-center leading-tight" style="font-family:'Instrument Sans',sans-serif;">${nameB.join(' ')}</span>
         </div>
       </div>
-      <div class="flex items-center gap-1.5 text-xs text-offwhite/35" style="font-family:'Instrument Sans',sans-serif;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        ${m.stadium}
+      <div class="text-xs text-offwhite/25 flex items-center gap-1" style="font-family:'Instrument Sans',sans-serif;">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        ${m.venue}
       </div>
-      <button onclick="predict(${i})" class="${predicted ? 'btn-outline opacity-60 cursor-not-allowed' : 'btn-gold'} py-2.5 text-sm w-full" ${predicted ? 'disabled' : ''}>
-        ${predicted ? '✓ Predicted' : 'Predict This Match'}
+      <button onclick="predict(${i})" class="${done ? 'btn-ghost opacity-50 cursor-not-allowed' : 'btn-gold'} w-full py-2.5 text-sm" ${done ? 'disabled' : ''}>
+        ${done ? `✓ ${predictions[i]}` : 'Predict This Match'}
       </button>
     </div>`;
   }).join('');
 }
 
 function predict(i) {
-  if (userPredictions[i]) return;
-  // Simple modal: pick winner
+  if (predictions[i]) return;
   const m = MATCHES[i];
-  const teamAName = m.teamA.split(' ').slice(1).join(' ');
-  const teamBName = m.teamB.split(' ').slice(1).join(' ');
-  const choice = prompt(`Who wins?\n1. ${teamAName}\n2. ${teamBName}\n3. Draw\n\nEnter 1, 2, or 3:`);
-  const map = {'1': teamAName, '2': teamBName, '3': 'Draw'};
+  const [, ...nA] = m.a.split(' '); const [, ...nB] = m.b.split(' ');
+  const teamA = nA.join(' '), teamB = nB.join(' ');
+  const choice = prompt(`Who wins?\n1. ${teamA}\n2. ${teamB}\n3. Draw\n\nType 1, 2, or 3:`);
+  const map = { '1': teamA, '2': teamB, '3': 'Draw' };
   if (map[choice]) {
-    userPredictions[i] = map[choice];
-    localStorage.setItem('fc_predictions', JSON.stringify(userPredictions));
+    predictions[i] = map[choice];
+    localStorage.setItem('fc_pred', JSON.stringify(predictions));
     renderMatches();
-    showToast(`Prediction saved: ${map[choice]} · +50 pts`);
+    toast(`Predicted: ${map[choice]} · +50 pts`);
   }
 }
 
-// ─── Render Nations ─────────────────────────────────────────────
+// ── Nations ─────────────────────────────────
 function renderNations() {
-  const grid = document.getElementById('nation-grid');
-  grid.innerHTML = NATIONS.map(n => `
-    <button class="nation-btn ${userNation && userNation.code === n.code ? 'selected' : ''}" onclick="selectNation('${n.code}')">
+  document.getElementById('nation-grid').innerHTML = NATIONS.map(n => `
+    <button class="nation-btn ${nation && nation.code===n.code ? 'selected' : ''}" onclick="pickNation('${n.code}')">
       <span class="text-xl">${n.flag}</span>
-      <span class="text-sm font-medium">${n.name}</span>
-    </button>
-  `).join('');
+      <span>${n.name}</span>
+    </button>`).join('');
 }
 
-function selectNation(code) {
-  const nation = NATIONS.find(n => n.code === code);
-  if (!nation) return;
-  userNation = nation;
+function pickNation(code) {
+  nation = NATIONS.find(n => n.code === code);
   localStorage.setItem('fc_nation', JSON.stringify(nation));
-  renderNations();
-  updateNationDisplay();
-  showToast(`You're now representing ${nation.flag} ${nation.name}!`);
+  renderNations(); updateNationUI();
+  toast(`Representing ${nation.flag} ${nation.name}!`);
 }
 
 function clearNation() {
-  userNation = null;
+  nation = null;
   localStorage.removeItem('fc_nation');
-  renderNations();
-  updateNationDisplay();
+  renderNations(); updateNationUI();
 }
 
-function initNation() { updateNationDisplay(); }
+function initNation() { updateNationUI(); }
 
-function updateNationDisplay() {
-  const display = document.getElementById('selected-nation-display');
-  const navBadge = document.getElementById('nation-badge-nav');
-  if (userNation) {
-    display.classList.remove('hidden');
-    document.getElementById('selected-flag').textContent = userNation.flag;
-    document.getElementById('selected-name').textContent = userNation.name;
-    navBadge.innerHTML = `<div id="nation-badge">${userNation.flag} <span>${userNation.name}</span></div>`;
+function updateNationUI() {
+  const d = document.getElementById('nation-display');
+  const nav = document.getElementById('nation-nav');
+  if (nation) {
+    d.classList.remove('hidden');
+    document.getElementById('sel-flag').textContent = nation.flag;
+    document.getElementById('sel-name').textContent = nation.name;
+    nav.innerHTML = `<div class="badge mr-1" style="gap:5px;">${nation.flag} <span>${nation.name}</span></div>`;
   } else {
-    display.classList.add('hidden');
-    navBadge.innerHTML = '';
+    d.classList.add('hidden');
+    nav.innerHTML = '';
   }
 }
 
-// ─── Render Leaderboard ─────────────────────────────────────────
-function renderLeaderboard() {
-  const container = document.getElementById('leaderboard-rows');
-  container.innerHTML = LEADERBOARD_DATA.map(p => {
-    const rankClass = p.rank === 1 ? 'rank-1' : p.rank === 2 ? 'rank-2' : p.rank === 3 ? 'rank-3' : 'text-offwhite/40';
-    const rankIcon = p.rank === 1 ? '🥇' : p.rank === 2 ? '🥈' : p.rank === 3 ? '🥉' : p.rank;
-    return `
-    <div class="lb-row grid grid-cols-12 px-6 py-4 border-b border-white/5 last:border-0 transition-all">
-      <div class="col-span-1 font-heading font-bold text-sm ${rankClass} flex items-center">${rankIcon}</div>
-      <div class="col-span-5 flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full bg-gold/15 border border-gold/20 flex items-center justify-center text-xs font-bold text-gold font-heading">${p.name[0]}</div>
-        <span class="text-sm font-medium text-offwhite" style="font-family:'Instrument Sans',sans-serif;">${p.name}</span>
+// ── Leaderboard ──────────────────────────────
+function renderLB() {
+  const colors = { 1:'#E8C86A', 2:'#C0C0C0', 3:'#CD7F32' };
+  const icons = { 1:'🥇', 2:'🥈', 3:'🥉' };
+  document.getElementById('lb-rows').innerHTML = LB.map(p => `
+    <div class="lb-row grid grid-cols-12 px-4 sm:px-6 py-3.5 border-b border-white/5 last:border-0">
+      <div class="col-span-1 flex items-center font-heading font-bold text-sm" style="color:${colors[p.rank]||'rgba(240,237,230,.3)'};">${icons[p.rank]||p.rank}</div>
+      <div class="col-span-6 sm:col-span-5 flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-gold/10 border border-gold/15 flex items-center justify-center text-xs font-bold gt font-heading flex-shrink-0">${p.name[0]}</div>
+        <span class="text-sm font-medium truncate" style="font-family:'Instrument Sans',sans-serif;">${p.name}</span>
       </div>
-      <div class="col-span-3 flex items-center gap-1.5 text-sm text-offwhite/50" style="font-family:'Instrument Sans',sans-serif;">
-        <span class="text-base">${p.flag}</span>
-        <span class="hidden sm:inline">${p.nation}</span>
+      <div class="col-span-2 sm:col-span-3 flex items-center gap-1.5 text-offwhite/45 text-sm">
+        <span>${p.flag}</span>
+        <span class="hidden sm:inline text-xs" style="font-family:'Instrument Sans',sans-serif;">${p.nation}</span>
       </div>
       <div class="col-span-3 flex items-center justify-end">
-        <span class="font-heading font-bold text-sm gold-text">${p.points.toLocaleString()}</span>
+        <span class="gt font-heading font-bold text-sm">${p.pts.toLocaleString()}</span>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 }
 
-// ─── Render Schedule ────────────────────────────────────────────
+// ── Schedule ─────────────────────────────────
 function renderSchedule() {
-  const container = document.getElementById('schedule-accordion');
-  container.innerHTML = SCHEDULE_DATA.map((stage, i) => `
-    <div class="glass-card overflow-hidden">
-      <button onclick="toggleAccordion(${i})" class="w-full flex items-center justify-between px-6 py-5 text-left group">
-        <div class="flex items-center gap-4">
-          <span class="text-2xl">${stage.icon}</span>
+  document.getElementById('schedule-acc').innerHTML = SCHEDULE.map((s, i) => `
+    <div class="card overflow-hidden">
+      <button onclick="toggleAcc(${i})" class="w-full flex items-center justify-between px-5 py-4 text-left">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">${s.icon}</span>
           <div>
-            <div class="font-heading font-bold text-lg">${stage.stage}</div>
-            <div class="text-xs text-offwhite/40 mt-0.5" style="font-family:'Instrument Sans',sans-serif;">${stage.dates}</div>
+            <div class="font-heading font-bold">${s.stage}</div>
+            <div class="text-xs text-offwhite/35 mt-0.5" style="font-family:'Instrument Sans',sans-serif;">${s.dates}</div>
           </div>
         </div>
-        <svg id="acc-arrow-${i}" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gold/50 transition-transform duration-300 flex-shrink-0">
+        <svg id="arr-${i}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="acc-arrow text-gold/40 flex-shrink-0">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
-      <div id="acc-content-${i}" class="accordion-content">
-        <div class="px-6 pb-5 flex flex-col gap-3 border-t border-white/5 pt-4">
-          ${stage.matches.map(m => `
-            <div class="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
-              <div class="flex items-center gap-3 flex-1">
-                <span class="text-offwhite/60" style="font-family:'Instrument Sans',sans-serif;">${m.a}</span>
-                <span class="text-offwhite/25 text-xs font-heading font-bold">VS</span>
-                <span class="text-offwhite/60" style="font-family:'Instrument Sans',sans-serif;">${m.b}</span>
-              </div>
-              <div class="text-right">
-                <div class="text-xs text-gold/70" style="font-family:'Instrument Sans',sans-serif;">${m.date}</div>
-                <div class="text-xs text-offwhite/30" style="font-family:'Instrument Sans',sans-serif;">${m.venue}</div>
-              </div>
+      <div id="acc-${i}" class="acc-body">
+        <div class="px-5 pb-4 pt-1 border-t border-white/5 flex flex-col gap-2.5">
+          ${s.matches.map(m => `
+          <div class="flex items-start justify-between gap-3 text-sm">
+            <div class="flex-1 text-offwhite/55 leading-snug" style="font-family:'Instrument Sans',sans-serif;">
+              ${m.a} <span class="text-offwhite/20 mx-1 text-xs font-heading">VS</span> ${m.b}
             </div>
-          `).join('')}
+            <div class="text-right flex-shrink-0">
+              <div class="text-xs text-gold/60">${m.date}</div>
+              <div class="text-xs text-offwhite/25">${m.venue}</div>
+            </div>
+          </div>`).join('')}
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function toggleAccordion(i) {
-  const content = document.getElementById(`acc-content-${i}`);
-  const arrow = document.getElementById(`acc-arrow-${i}`);
-  const isOpen = content.classList.contains('open');
-  content.classList.toggle('open', !isOpen);
-  arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+function toggleAcc(i) {
+  const body = document.getElementById(`acc-${i}`);
+  const arr = document.getElementById(`arr-${i}`);
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  arr.classList.toggle('open', !open);
 }
 
-// ─── Logo click (admin unlock) ───────────────────────────────────
+// ── Logo click (admin) ────────────────────────
 function handleLogoClick() {
-  logoClickCount++;
-  clearTimeout(logoClickTimer);
-  if (logoClickCount >= 5) {
-    logoClickCount = 0;
-    openAdminModal();
-  } else {
-    logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
-  }
+  logoClicks++;
+  clearTimeout(logoTimer);
+  if (logoClicks >= 5) { logoClicks = 0; openAdmin(); }
+  else logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
 }
 
-// ─── Login Modal ────────────────────────────────────────────────
-function openLoginModal() {
+// ── Login ─────────────────────────────────────
+function openLogin() {
+  document.getElementById('email-form').classList.remove('hidden');
+  document.getElementById('email-success').classList.add('hidden');
+  document.getElementById('login-email').value = '';
   document.getElementById('login-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('login-email').focus(), 300);
 }
-function closeLoginModal() {
+function closeLogin() {
   document.getElementById('login-modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-function handleModalBackdropClick(e) {
-  if (e.target === document.getElementById('login-modal')) closeLoginModal();
+function handleLoginBg(e) {
+  if (e.target === document.getElementById('login-modal')) closeLogin();
 }
 
-// ─── Admin Modal ─────────────────────────────────────────────────
-function openAdminModal() {
-  const saved = JSON.parse(localStorage.getItem('fc_admin') || 'null');
-  if (saved) {
-    document.getElementById('admin-supabase-url').value = saved.supabaseUrl || '';
-    document.getElementById('admin-supabase-key').value = saved.supabaseAnonKey || '';
-    updateAuthToggleUI(saved.authEnabled);
+function submitEmail(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  if (!email) return;
+  const emails = JSON.parse(localStorage.getItem('fc_emails') || '[]');
+  if (!emails.includes(email)) { emails.push(email); localStorage.setItem('fc_emails', JSON.stringify(emails)); }
+  document.getElementById('email-form').classList.add('hidden');
+  document.getElementById('email-success').classList.remove('hidden');
+  toast(`Welcome! We'll see you at the World Cup 🏆`);
+  setTimeout(closeLogin, 2800);
+}
+
+// ── Admin ─────────────────────────────────────
+function openAdmin() {
+  const s = JSON.parse(localStorage.getItem('fc_admin') || 'null');
+  if (s) {
+    document.getElementById('sb-url').value = s.supabaseUrl || '';
+    document.getElementById('sb-key').value = s.supabaseAnonKey || '';
+    syncAdminUI(s.authEnabled);
   }
   document.getElementById('admin-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeAdminModal() {
+function closeAdmin() {
   document.getElementById('admin-modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-function handleAdminBackdropClick(e) {
-  if (e.target === document.getElementById('admin-modal')) closeAdminModal();
+function handleAdminBg(e) {
+  if (e.target === document.getElementById('admin-modal')) closeAdmin();
 }
-
 function toggleAuth() {
   SETTINGS.authEnabled = !SETTINGS.authEnabled;
-  updateAuthToggleUI(SETTINGS.authEnabled);
+  syncAdminUI(SETTINGS.authEnabled);
 }
-function updateAuthToggleUI(enabled) {
+function syncAdminUI(enabled = SETTINGS.authEnabled) {
   const btn = document.getElementById('auth-toggle');
-  const knob = document.getElementById('auth-toggle-knob');
-  btn.style.background = enabled ? '#C9A84C' : 'rgba(255,255,255,0.1)';
-  knob.style.transform = enabled ? 'translateX(24px)' : '';
-  knob.style.background = enabled ? '#070B1A' : 'rgba(240,237,230,0.5)';
+  const knob = document.getElementById('auth-knob');
+  if (!btn) return;
+  btn.style.background = enabled ? '#C9A84C' : 'rgba(255,255,255,.1)';
+  knob.style.transform = enabled ? 'translateX(21px)' : '';
+  knob.style.background = enabled ? '#070B1A' : 'rgba(240,237,230,.4)';
 }
-function saveAdminSettings() {
-  const settings = {
-    authEnabled: SETTINGS.authEnabled,
-    supabaseUrl: document.getElementById('admin-supabase-url').value.trim(),
-    supabaseAnonKey: document.getElementById('admin-supabase-key').value.trim(),
-  };
-  Object.assign(SETTINGS, settings);
-  localStorage.setItem('fc_admin', JSON.stringify(settings));
-  closeAdminModal();
-  showToast('Settings saved successfully');
-}
-function initAdminUI() {
-  updateAuthToggleUI(SETTINGS.authEnabled);
+function saveAdmin() {
+  const s = { authEnabled: SETTINGS.authEnabled, supabaseUrl: document.getElementById('sb-url').value.trim(), supabaseAnonKey: document.getElementById('sb-key').value.trim() };
+  Object.assign(SETTINGS, s);
+  localStorage.setItem('fc_admin', JSON.stringify(s));
+  closeAdmin();
+  toast('Settings saved');
 }
 
-// ─── Toast ───────────────────────────────────────────────────────
-function showToast(msg) {
-  const existing = document.getElementById('fc-toast');
-  if (existing) existing.remove();
-  const toast = document.createElement('div');
-  toast.id = 'fc-toast';
-  toast.style.cssText = `
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:#0D1426;border:1px solid rgba(201,168,76,0.3);border-radius:12px;
-    padding:12px 20px;font-size:14px;font-family:'Instrument Sans',sans-serif;color:#E8C86A;
-    z-index:9999;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.4);
-    transition:all 0.3s ease;opacity:0;
-  `;
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  requestAnimationFrame(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-  });
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(20px)';
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
+// ── Toast ─────────────────────────────────────
+function toast(msg) {
+  const ex = document.getElementById('fc-toast');
+  if (ex) ex.remove();
+  const t = document.createElement('div');
+  t.id = 'fc-toast';
+  t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#0E1628;border:1px solid rgba(201,168,76,.28);border-radius:12px;padding:11px 18px;font-size:13px;font-family:\'Instrument Sans\',sans-serif;color:#E8C86A;z-index:9999;white-space:nowrap;box-shadow:0 8px 28px rgba(0,0,0,.5);transition:all .25s;opacity:0;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; setTimeout(() => t.remove(), 280); }, 3000);
 }
 
-// ─── ESC key ─────────────────────────────────────────────────────
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeLoginModal();
-    closeAdminModal();
-  }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLogin(); closeAdmin(); }
 });
 </script>
 </body>
