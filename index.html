@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" translate="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FootballCoins.fun – Predict the World Cup 2026</title>
-  <meta name="description" content="Make predictions, earn points, support your nation, and compete during the biggest football tournament on earth." />
+  <meta name="google" content="notranslate" />
+  <meta http-equiv="Content-Language" content="ja" />
+  <title>FootballCoins.fun – ワールドカップ2026を予測しよう</title>
+  <meta name="description" content="試合を予測してポイントを獲得。あなたの国を応援し、史上最大のフットボールの祭典で世界と競い合おう。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -61,9 +63,13 @@
       background: rgba(255,255,255,0.035);
       border: 1px solid rgba(201,168,76,0.14);
       border-radius: 16px;
-      transition: border-color .2s, background .2s;
+      transition: border-color .2s, background .2s, box-shadow .2s;
     }
-    .card:hover { border-color: rgba(201,168,76,0.32); background: rgba(255,255,255,0.055); }
+    .card:hover {
+      border-color: rgba(201,168,76,0.32);
+      background: rgba(255,255,255,0.055);
+      box-shadow: 0 0 28px rgba(201,168,76,0.06);
+    }
 
     /* ── Buttons ── */
     .btn-gold {
@@ -79,8 +85,14 @@
       transition: transform .18s, box-shadow .18s;
       -webkit-tap-highlight-color: transparent;
     }
+    .btn-gold::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
     .btn-gold:active { transform: scale(0.97); }
-    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(201,168,76,.32); }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,168,76,.38); }
 
     .btn-ghost {
       display: inline-flex; align-items: center; justify-content: center;
@@ -91,18 +103,29 @@
       border-radius: 14px;
       background: transparent;
       cursor: pointer;
-      transition: border-color .18s, background .18s, transform .18s;
+      transition: border-color .18s, background .18s, transform .18s, box-shadow .18s;
       -webkit-tap-highlight-color: transparent;
     }
-    .btn-ghost:hover { border-color: #C9A84C; background: rgba(201,168,76,.07); transform: translateY(-1px); }
+    .btn-ghost:hover {
+      border-color: #C9A84C;
+      background: rgba(201,168,76,.07);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201,168,76,.1);
+    }
     .btn-ghost:active { transform: scale(0.97); }
 
     /* ── Top bar ── */
     #topbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       height: 36px;
-      background: #C9A84C;
+      background: linear-gradient(90deg, #B8922A 0%, #C9A84C 50%, #B8922A 100%);
+      background-size: 200% auto;
+      animation: topbar-shimmer 4s linear infinite;
       display: flex; align-items: center; justify-content: center;
+    }
+    @keyframes topbar-shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
     }
     #topbar a {
       display: flex; align-items: center; gap: 6px;
@@ -121,10 +144,10 @@
       transition: background .25s, border-color .25s;
     }
     #navbar.scrolled {
-      background: rgba(7,11,26,.94);
+      background: rgba(7,11,26,.96);
       border-bottom: 1px solid rgba(201,168,76,.12);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
     #logo-area { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 
@@ -142,11 +165,17 @@
         linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
       background-size: 56px 56px;
     }
+    .glow-orb {
+      position: absolute; pointer-events: none;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .18;
+    }
 
     /* ── Ticker / pulse ── */
     @keyframes pulse-dot {
-      0%,100% { opacity: 1; }
-      50% { opacity: .3; }
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .3; transform: scale(0.8); }
     }
     .pulse-dot { animation: pulse-dot 1.6s ease infinite; }
 
@@ -156,11 +185,12 @@
 
     /* ── Animations ── */
     @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
-    .au { animation: fadeUp .65s ease forwards; }
+    .au { animation: fadeUp .65s ease forwards; opacity: 0; }
     .d1 { animation-delay: .1s; }
     .d2 { animation-delay: .2s; }
     .d3 { animation-delay: .3s; }
     .d4 { animation-delay: .4s; }
+    .d5 { animation-delay: .5s; }
 
     @keyframes shimmer {
       0% { background-position: -200% center; }
@@ -190,6 +220,43 @@
       padding: 3px 8px;
     }
 
+    /* ── Countdown ── */
+    .countdown-box {
+      background: rgba(201,168,76,.07);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex; flex-direction: column; align-items: center;
+      min-width: 58px;
+    }
+    .countdown-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 1;
+      background: linear-gradient(135deg, #E8C86A, #C9A84C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .countdown-label {
+      font-size: 9px;
+      letter-spacing: .12em;
+      color: rgba(201,168,76,.55);
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .countdown-sep {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: rgba(201,168,76,.3);
+      align-self: center;
+      margin-bottom: 6px;
+    }
+
     /* ── Match scroll ── */
     .match-scroll {
       display: flex; gap: 12px;
@@ -215,8 +282,12 @@
       color: #F0EDE6;
       -webkit-tap-highlight-color: transparent;
     }
-    .nation-btn:hover { border-color: rgba(201,168,76,.38); background: rgba(201,168,76,.06); }
-    .nation-btn.selected { border-color: #C9A84C; background: rgba(201,168,76,.11); }
+    .nation-btn:hover { border-color: rgba(201,168,76,.38); background: rgba(201,168,76,.06); transform: translateY(-1px); }
+    .nation-btn.selected {
+      border-color: #C9A84C;
+      background: rgba(201,168,76,.11);
+      box-shadow: 0 0 16px rgba(201,168,76,.12);
+    }
 
     /* ── Accordion ── */
     .acc-body { max-height: 0; overflow: hidden; transition: max-height .38s ease; }
@@ -232,8 +303,8 @@
     .modal-bg {
       position: fixed; inset: 0; z-index: 500;
       background: rgba(7,11,26,.88);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: flex; align-items: flex-end; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity .22s;
@@ -244,13 +315,14 @@
     .modal-bg.open { opacity: 1; pointer-events: all; }
     .modal-box {
       background: #0E1628;
-      border: 1px solid rgba(201,168,76,.18);
+      border: 1px solid rgba(201,168,76,.2);
       border-radius: 24px 24px 0 0;
       width: 100%;
       max-width: 440px;
       padding: 28px 24px 36px;
       transform: translateY(24px);
       transition: transform .25s ease;
+      box-shadow: 0 -20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.06);
     }
     @media (min-width: 640px) {
       .modal-box { border-radius: 24px; padding: 32px; transform: scale(.96) translateY(8px); }
@@ -269,11 +341,14 @@
       font-family: 'Instrument Sans', sans-serif;
       color: #F0EDE6;
       outline: none;
-      transition: border-color .18s;
+      transition: border-color .18s, box-shadow .18s;
       -webkit-appearance: none;
     }
     .email-input::placeholder { color: rgba(240,237,230,.28); }
-    .email-input:focus { border-color: rgba(201,168,76,.5); }
+    .email-input:focus {
+      border-color: rgba(201,168,76,.5);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.08);
+    }
 
     /* ── Earn icon ── */
     .earn-icon {
@@ -305,6 +380,37 @@
       transition: transform .22s;
     }
     .admin-bg.open .admin-box { transform: scale(1); }
+
+    /* ── Predict Modal ── */
+    .predict-choice {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      transition: all .18s;
+      display: flex; align-items: center; justify-content: space-between;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .predict-choice:hover {
+      border-color: rgba(201,168,76,.4);
+      background: rgba(201,168,76,.07);
+      transform: translateY(-1px);
+    }
+    .predict-choice.selected {
+      border-color: #C9A84C;
+      background: rgba(201,168,76,.12);
+      box-shadow: 0 0 20px rgba(201,168,76,.1);
+    }
+    .predict-choice-flag { font-size: 28px; }
+    .predict-choice-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 16px; }
+    .predict-choice-pts { font-family: 'Instrument Sans', sans-serif; font-size: 12px; color: rgba(201,168,76,.6); }
+
+    /* ── Section divider ── */
+    .section-glow {
+      position: absolute; top: -1px; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,.15) 50%, transparent 100%);
+    }
   </style>
 </head>
 <body>
@@ -313,9 +419,9 @@
      TOP BAR — X ACCOUNT
 ══════════════════════════════ -->
 <div id="topbar">
-  <a href="https://x.com/footballcoins_" target="_blank" rel="noopener">
+  <a href="https://x.com/Akarifujimoto_" target="_blank" rel="noopener">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="#070B1A"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.845L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    Follow us @footballcoins_
+    フォローする @Akarifujimoto_
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#070B1A" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
   </a>
 </div>
@@ -341,14 +447,13 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <!-- Nav links — hidden on small screens -->
       <div class="hidden sm:flex items-center gap-1 mr-2">
-        <button onclick="scrollTo('matches')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Matches</button>
-        <button onclick="scrollTo('leaderboard')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Leaderboard</button>
-        <button onclick="scrollTo('schedule')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">Schedule</button>
+        <button onclick="scrollTo('matches')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">試合</button>
+        <button onclick="scrollTo('leaderboard')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">ランキング</button>
+        <button onclick="scrollTo('schedule')" class="text-offwhite/40 hover:text-offwhite/80 text-xs px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all" style="font-family:'Instrument Sans',sans-serif;">スケジュール</button>
       </div>
       <div id="nation-nav" class="hidden sm:flex"></div>
-      <button onclick="openLogin()" class="btn-gold px-4 py-2 text-sm">Login</button>
+      <button onclick="openLogin()" class="btn-gold px-4 py-2 text-sm">ログイン</button>
     </div>
   </div>
 </nav>
@@ -358,53 +463,68 @@
 ══════════════════════════════ -->
 <section class="hero-bg relative overflow-hidden" style="padding-top: calc(36px + 56px + 32px); padding-bottom: 72px; min-height: 100svh; display:flex; align-items:center;">
   <div class="grid-overlay"></div>
+  <div class="glow-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,1),transparent);top:-100px;left:50%;transform:translateX(-50%);"></div>
   <div class="max-w-5xl mx-auto px-4 relative z-10 w-full">
 
     <!-- Live pill -->
     <div class="inline-flex items-center gap-2 card px-3 py-1.5 mb-6 au">
       <span class="w-1.5 h-1.5 rounded-full bg-gold-l pulse-dot"></span>
-      <span style="font-size:11px;letter-spacing:.1em;color:#C9A84C;font-family:'Instrument Sans',sans-serif;font-weight:600;">FIFA WORLD CUP 2026 · USA · CANADA · MEXICO</span>
+      <span style="font-size:11px;letter-spacing:.1em;color:#C9A84C;font-family:'Instrument Sans',sans-serif;font-weight:600;">FIFA ワールドカップ 2026 · アメリカ · カナダ · メキシコ</span>
     </div>
 
     <!-- Headline -->
     <h1 class="font-heading font-extrabold leading-[1.03] mb-5 au d1" style="font-size:clamp(40px,11vw,80px);">
-      Predict the<br/>
-      <span class="gt">World Cup.</span><br/>
-      Own the<br/>
-      <span class="gt-stroke">Leaderboard.</span>
+      ワールドカップを<br/>
+      <span class="gt">予測しよう。</span><br/>
+      ランキングを<br/>
+      <span class="gt-stroke">制覇せよ。</span>
     </h1>
 
-    <p class="text-offwhite/60 mb-8 au d2" style="font-size:clamp(15px,4vw,18px);max-width:480px;line-height:1.65;">
-      Make predictions, earn points, support your nation, and compete during the biggest football tournament on earth.
+    <p class="text-offwhite/60 mb-6 au d2" style="font-size:clamp(15px,4vw,18px);max-width:480px;line-height:1.65;">
+      試合を予測してポイントを獲得。あなたの国を応援し、史上最大のフットボールの祭典で世界と競い合おう。
     </p>
 
-    <!-- CTAs — stack on mobile -->
-    <div class="flex flex-col sm:flex-row gap-3 au d3" style="max-width:360px;">
+    <!-- Countdown -->
+    <div class="au d3 mb-8" id="countdown-wrap">
+      <div class="text-xs text-offwhite/30 uppercase tracking-widest mb-3" style="font-family:'Instrument Sans',sans-serif;">キックオフまで</div>
+      <div class="flex items-start gap-2" id="countdown-display">
+        <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">日</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">時間</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">分</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">秒</span></div>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-3 au d4" style="max-width:360px;">
       <button onclick="scrollTo('predict')" class="btn-gold py-4 text-base w-full sm:w-auto sm:px-7">
-        Start Predicting
+        予測を始める
       </button>
       <button onclick="scrollTo('matches')" class="btn-ghost py-4 text-base w-full sm:w-auto sm:px-7">
-        View Matches
+        試合を見る
       </button>
     </div>
 
-    <!-- Stats — 2×2 on mobile, row on desktop -->
-    <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-8 gap-y-5 mt-12 au d4">
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-8 gap-y-5 mt-12 au d5">
       <div>
         <div class="text-3xl font-heading font-extrabold gt">48</div>
-        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Group Matches</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">グループ試合</div>
       </div>
       <div>
         <div class="text-3xl font-heading font-extrabold gt">32</div>
-        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Nations</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">参加国</div>
       </div>
       <div>
         <div class="text-3xl font-heading font-extrabold gt">1000+</div>
-        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Points to Win</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">獲得ポイント</div>
       </div>
       <div>
         <div class="text-3xl font-heading font-extrabold gt">3</div>
-        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">Host Nations</div>
+        <div class="text-xs text-offwhite/40 mt-0.5 tracking-widest uppercase">開催国</div>
       </div>
     </div>
   </div>
@@ -413,12 +533,13 @@
 <!-- ══════════════════════════════
      UPCOMING MATCHES
 ══════════════════════════════ -->
-<section id="matches" class="py-14 sm:py-20" style="background:#0D1426;">
+<section id="matches" class="py-14 sm:py-20 relative" style="background:#0D1426;">
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-8">
-      <div class="badge mb-3">Live Schedule</div>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Upcoming Matches</h2>
-      <p class="text-offwhite/40 text-sm mt-2">Predict before kick-off · swipe to browse</p>
+      <div class="badge mb-3">ライブスケジュール</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">直近の試合</h2>
+      <p class="text-offwhite/40 text-sm mt-2">キックオフ前に予測しよう · スワイプで確認</p>
     </div>
     <div class="match-scroll reveal" id="match-cards"></div>
   </div>
@@ -427,12 +548,13 @@
 <!-- ══════════════════════════════
      PREDICT & EARN
 ══════════════════════════════ -->
-<section id="predict" class="py-14 sm:py-20">
+<section id="predict" class="py-14 sm:py-20 relative">
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-10">
-      <div class="badge mb-3">How it Works</div>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Predict &amp; Earn</h2>
-      <p class="text-offwhite/40 text-sm mt-2">Three ways to prove you know football better than anyone</p>
+      <div class="badge mb-3">仕組み</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">予測 &amp; 獲得</h2>
+      <p class="text-offwhite/40 text-sm mt-2">フットボールを誰よりも知っていることを証明する3つの方法</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <!-- Card 1 -->
@@ -441,12 +563,12 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </div>
         <div>
-          <h3 class="text-lg font-heading font-bold mb-1.5">Predict Match Winner</h3>
-          <p class="text-offwhite/50 text-sm leading-relaxed">Choose which team wins, draws, or loses. The backbone of every great streak.</p>
+          <h3 class="text-lg font-heading font-bold mb-1.5">勝者を予測</h3>
+          <p class="text-offwhite/50 text-sm leading-relaxed">どのチームが勝つか、引き分けるか、負けるかを選ぼう。連勝の土台となる基本予測。</p>
         </div>
         <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
-          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
-          <span class="shimmer font-heading font-bold text-lg">+50 pts</span>
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">報酬</span>
+          <span class="shimmer font-heading font-bold text-lg">+50 pt</span>
         </div>
       </div>
       <!-- Card 2 -->
@@ -456,14 +578,14 @@
         </div>
         <div>
           <div class="flex items-center gap-2 mb-1.5">
-            <h3 class="text-lg font-heading font-bold">Predict Exact Score</h3>
-            <span class="badge">Hot</span>
+            <h3 class="text-lg font-heading font-bold">スコアを完全予測</h3>
+            <span class="badge">人気</span>
           </div>
-          <p class="text-offwhite/50 text-sm leading-relaxed">Nail the exact scoreline and watch your points skyrocket. High risk, max reward.</p>
+          <p class="text-offwhite/50 text-sm leading-relaxed">正確なスコアラインを的中させてポイントを急上昇。ハイリスク、最大報酬。</p>
         </div>
         <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
-          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
-          <span class="shimmer font-heading font-bold text-lg">+200 pts</span>
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">報酬</span>
+          <span class="shimmer font-heading font-bold text-lg">+200 pt</span>
         </div>
       </div>
       <!-- Card 3 -->
@@ -472,12 +594,12 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 15L8.5 9.5H15.5L12 15Z" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7H20M4 7L7 3H17L20 7M4 7V20C4 20.5523 4.44772 21 5 21H19C19.5523 21 20 20.5523 20 20V7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <h3 class="text-lg font-heading font-bold mb-1.5">Predict Tournament Champion</h3>
-          <p class="text-offwhite/50 text-sm leading-relaxed">One pick. One champion. Made before kick-off. The ultimate long game.</p>
+          <h3 class="text-lg font-heading font-bold mb-1.5">優勝国を予測</h3>
+          <p class="text-offwhite/50 text-sm leading-relaxed">一回の予測、一つのチャンピオン。キックオフ前に決める。究極の長期戦略。</p>
         </div>
         <div class="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
-          <span class="text-xs text-offwhite/30 uppercase tracking-wider">Reward</span>
-          <span class="shimmer font-heading font-bold text-lg">+500 pts</span>
+          <span class="text-xs text-offwhite/30 uppercase tracking-wider">報酬</span>
+          <span class="shimmer font-heading font-bold text-lg">+500 pt</span>
         </div>
       </div>
     </div>
@@ -487,22 +609,23 @@
 <!-- ══════════════════════════════
      CHOOSE YOUR NATION
 ══════════════════════════════ -->
-<section id="nations" class="py-14 sm:py-20" style="background:#0D1426;">
+<section id="nations" class="py-14 sm:py-20 relative" style="background:#0D1426;">
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-8">
-      <div class="badge mb-3">Your Nation</div>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Choose Your Side</h2>
-      <p class="text-offwhite/40 text-sm mt-2">Represent your nation and compete for glory</p>
+      <div class="badge mb-3">あなたの国</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">サポートする国を選ぼう</h2>
+      <p class="text-offwhite/40 text-sm mt-2">あなたの国を代表して、栄光を目指せ</p>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 reveal" id="nation-grid"></div>
     <div id="nation-display" class="mt-5 hidden">
       <div class="card inline-flex items-center gap-4 p-4">
         <span id="sel-flag" class="text-4xl"></span>
         <div>
-          <div class="text-xs text-offwhite/35 uppercase tracking-wider mb-0.5">Your Nation</div>
+          <div class="text-xs text-offwhite/35 uppercase tracking-wider mb-0.5">あなたの国</div>
           <div id="sel-name" class="font-heading font-bold text-xl gt"></div>
         </div>
-        <button onclick="clearNation()" class="ml-2 text-offwhite/25 hover:text-offwhite/50 text-xs transition-colors">Change</button>
+        <button onclick="clearNation()" class="ml-2 text-offwhite/25 hover:text-offwhite/50 text-xs transition-colors">変更</button>
       </div>
     </div>
   </div>
@@ -513,18 +636,19 @@
 ══════════════════════════════ -->
 <section id="leaderboard" class="py-14 sm:py-20 relative overflow-hidden">
   <div style="position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-8">
-      <div class="badge mb-3">Global Rankings</div>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Leaderboard</h2>
-      <p class="text-offwhite/40 text-sm mt-2">Top predictors from around the world</p>
+      <div class="badge mb-3">世界ランキング</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">リーダーボード</h2>
+      <p class="text-offwhite/40 text-sm mt-2">世界中のトッププレイヤーたち</p>
     </div>
     <div class="card overflow-hidden reveal">
       <div class="grid grid-cols-12 px-4 sm:px-6 py-3 border-b border-white/5 text-xs text-offwhite/25 uppercase tracking-wider font-semibold" style="font-family:'Instrument Sans',sans-serif;">
         <div class="col-span-1">#</div>
-        <div class="col-span-6 sm:col-span-5">Player</div>
-        <div class="col-span-2 sm:col-span-3">Nation</div>
-        <div class="col-span-3 text-right">Points</div>
+        <div class="col-span-6 sm:col-span-5">プレイヤー</div>
+        <div class="col-span-2 sm:col-span-3">国</div>
+        <div class="col-span-3 text-right">ポイント</div>
       </div>
       <div id="lb-rows"></div>
     </div>
@@ -534,12 +658,13 @@
 <!-- ══════════════════════════════
      SCHEDULE
 ══════════════════════════════ -->
-<section id="schedule" class="py-14 sm:py-20" style="background:#0D1426;">
+<section id="schedule" class="py-14 sm:py-20 relative" style="background:#0D1426;">
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="reveal mb-8">
-      <div class="badge mb-3">Official Timeline</div>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold">World Cup Schedule</h2>
-      <p class="text-offwhite/40 text-sm mt-2">FIFA World Cup 2026 · June – July 2026</p>
+      <div class="badge mb-3">公式タイムライン</div>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">ワールドカップ日程</h2>
+      <p class="text-offwhite/40 text-sm mt-2">FIFA ワールドカップ 2026 · 2026年6月〜7月</p>
     </div>
     <div class="flex flex-col gap-2.5 reveal" id="schedule-acc"></div>
   </div>
@@ -548,7 +673,8 @@
 <!-- ══════════════════════════════
      FOOTER
 ══════════════════════════════ -->
-<footer class="border-t border-white/5 py-10">
+<footer class="border-t border-white/5 py-10 relative">
+  <div class="section-glow"></div>
   <div class="max-w-5xl mx-auto px-4">
     <div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
       <div class="flex items-center gap-2.5">
@@ -563,10 +689,10 @@
         <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;">FOOTBALL<span class="gt">COINS</span><span style="color:#C9A84C44;margin-left:2px;">.FUN</span></span>
       </div>
       <div class="flex items-center gap-5">
-        <button onclick="scrollTo('matches')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Matches</button>
-        <button onclick="scrollTo('leaderboard')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Leaderboard</button>
-        <button onclick="scrollTo('schedule')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">Schedule</button>
-        <a href="https://x.com/footballcoins_" target="_blank" rel="noopener" class="text-offwhite/30 hover:text-gold-l transition-colors">
+        <button onclick="scrollTo('matches')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">試合</button>
+        <button onclick="scrollTo('leaderboard')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">ランキング</button>
+        <button onclick="scrollTo('schedule')" class="text-offwhite/30 hover:text-gold-l transition-colors text-xs" style="font-family:'Instrument Sans',sans-serif;">スケジュール</button>
+        <a href="https://x.com/Akarifujimoto_" target="_blank" rel="noopener" class="text-offwhite/30 hover:text-gold-l transition-colors">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.845L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
       </div>
@@ -576,32 +702,29 @@
 </footer>
 
 <!-- ══════════════════════════════
-     LOGIN MODAL — email only
+     LOGIN MODAL
 ══════════════════════════════ -->
 <div id="login-modal" class="modal-bg" onclick="handleLoginBg(event)">
   <div class="modal-box">
-    <!-- Handle bar (mobile) -->
     <div class="w-10 h-1 rounded-full bg-white/10 mx-auto mb-6 sm:hidden"></div>
 
     <div class="flex items-start justify-between mb-6">
       <div>
-        <h2 class="text-2xl font-heading font-bold">Join the Game</h2>
-        <p class="text-offwhite/40 text-sm mt-1" style="font-family:'Instrument Sans',sans-serif;">Enter your email to get early access</p>
+        <h2 class="text-2xl font-heading font-bold">ゲームに参加する</h2>
+        <p class="text-offwhite/40 text-sm mt-1" style="font-family:'Instrument Sans',sans-serif;">メールアドレスを入力して早期アクセスを取得</p>
       </div>
       <button onclick="closeLogin()" class="text-offwhite/25 hover:text-offwhite/60 transition-colors mt-1 ml-4 flex-shrink-0">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
 
-    <!-- Trophy line -->
     <div class="flex items-center gap-3 mb-5 card p-3.5">
       <span class="text-2xl">🏆</span>
       <p class="text-sm text-offwhite/55 leading-snug" style="font-family:'Instrument Sans',sans-serif;">
-        Be first to predict when World Cup 2026 kicks off. <span class="text-gold-l font-semibold">Early access is open now.</span>
+        ワールドカップ2026キックオフ時に最初に予測しよう。<span class="text-gold-l font-semibold">早期アクセス受付中。</span>
       </p>
     </div>
 
-    <!-- Email form -->
     <form id="email-form" onsubmit="submitEmail(event)" class="flex flex-col gap-3">
       <input
         id="login-email"
@@ -613,17 +736,40 @@
         inputmode="email"
       />
       <button type="submit" class="btn-gold w-full py-4 text-base">
-        Get Early Access
+        早期アクセスを取得
       </button>
     </form>
 
     <div id="email-success" class="hidden text-center py-4">
       <div class="text-3xl mb-2">✅</div>
-      <p class="font-heading font-bold text-lg mb-1">You're on the list!</p>
-      <p class="text-offwhite/45 text-sm" style="font-family:'Instrument Sans',sans-serif;">We'll notify you when the platform goes live.</p>
+      <p class="font-heading font-bold text-lg mb-1">リストに追加されました！</p>
+      <p class="text-offwhite/45 text-sm" style="font-family:'Instrument Sans',sans-serif;">プラットフォームが公開されたらお知らせします。</p>
     </div>
 
-    <p class="text-center text-xs text-offwhite/20 mt-4" style="font-family:'Instrument Sans',sans-serif;">No spam. Just football.</p>
+    <p class="text-center text-xs text-offwhite/20 mt-4" style="font-family:'Instrument Sans',sans-serif;">スパムなし。ただフットボール。</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PREDICT MODAL
+══════════════════════════════ -->
+<div id="predict-modal" class="modal-bg" onclick="handlePredictBg(event)">
+  <div class="modal-box">
+    <div class="w-10 h-1 rounded-full bg-white/10 mx-auto mb-6 sm:hidden"></div>
+    <div class="flex items-start justify-between mb-5">
+      <div>
+        <h2 class="text-xl font-heading font-bold" id="predict-title">試合を予測</h2>
+        <p class="text-offwhite/35 text-xs mt-1" id="predict-venue" style="font-family:'Instrument Sans',sans-serif;"></p>
+      </div>
+      <button onclick="closePredictModal()" class="text-offwhite/25 hover:text-offwhite/60 transition-colors mt-1 ml-4 flex-shrink-0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="flex flex-col gap-2.5 mb-5" id="predict-choices"></div>
+    <button onclick="confirmPredict()" id="predict-confirm" class="btn-gold w-full py-4 text-base opacity-40 cursor-not-allowed" disabled>
+      予測を確定する · <span id="predict-pts" class="opacity-70"></span>
+    </button>
+    <p class="text-center text-xs text-offwhite/20 mt-3" style="font-family:'Instrument Sans',sans-serif;">予測は確定後に変更できません</p>
   </div>
 </div>
 
@@ -634,8 +780,8 @@
   <div class="admin-box">
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h3 class="font-heading font-bold text-lg">Admin Settings</h3>
-        <p class="text-xs text-offwhite/30 mt-0.5">Internal configuration</p>
+        <h3 class="font-heading font-bold text-lg">管理者設定</h3>
+        <p class="text-xs text-offwhite/30 mt-0.5">内部設定</p>
       </div>
       <button onclick="closeAdmin()" class="text-offwhite/25 hover:text-offwhite/60 transition-colors">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -644,8 +790,8 @@
     <div class="flex flex-col gap-4">
       <div class="flex items-center justify-between py-3 border-b border-white/6">
         <div>
-          <div class="text-sm font-semibold">Enable Auth</div>
-          <div class="text-xs text-offwhite/30 mt-0.5">Activates Supabase auth flow</div>
+          <div class="text-sm font-semibold">認証を有効にする</div>
+          <div class="text-xs text-offwhite/30 mt-0.5">Supabase認証フローを有効化</div>
         </div>
         <button id="auth-toggle" onclick="toggleAuth()" class="relative w-11 h-6 rounded-full transition-colors bg-white/10 focus:outline-none flex-shrink-0">
           <span id="auth-knob" class="absolute left-1 top-1 w-4 h-4 rounded-full bg-offwhite/40 transition-transform"></span>
@@ -659,7 +805,7 @@
         <label class="block text-xs text-offwhite/35 uppercase tracking-wider mb-1.5">Anon Key</label>
         <input id="sb-key" type="password" placeholder="eyJ..." class="email-input text-sm" style="padding:11px 14px;" />
       </div>
-      <button onclick="saveAdmin()" class="btn-gold w-full py-3 text-sm">Save Settings</button>
+      <button onclick="saveAdmin()" class="btn-gold w-full py-3 text-sm">設定を保存</button>
     </div>
   </div>
 </div>
@@ -671,79 +817,80 @@
 const SETTINGS = { authEnabled: false, supabaseUrl: '', supabaseAnonKey: '' };
 
 const NATIONS = [
-  { name:'Argentina', flag:'🇦🇷', code:'ARG' },
-  { name:'Brazil',    flag:'🇧🇷', code:'BRA' },
-  { name:'France',    flag:'🇫🇷', code:'FRA' },
-  { name:'England',   flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', code:'ENG' },
-  { name:'Germany',   flag:'🇩🇪', code:'GER' },
-  { name:'Spain',     flag:'🇪🇸', code:'ESP' },
-  { name:'Portugal',  flag:'🇵🇹', code:'POR' },
-  { name:'USA',       flag:'🇺🇸', code:'USA' },
-  { name:'Mexico',    flag:'🇲🇽', code:'MEX' },
-  { name:'Morocco',   flag:'🇲🇦', code:'MAR' },
+  { name:'日本',        flag:'🇯🇵', code:'JPN' },
+  { name:'アルゼンチン', flag:'🇦🇷', code:'ARG' },
+  { name:'ブラジル',    flag:'🇧🇷', code:'BRA' },
+  { name:'フランス',    flag:'🇫🇷', code:'FRA' },
+  { name:'イングランド',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', code:'ENG' },
+  { name:'ドイツ',      flag:'🇩🇪', code:'GER' },
+  { name:'スペイン',    flag:'🇪🇸', code:'ESP' },
+  { name:'ポルトガル',  flag:'🇵🇹', code:'POR' },
+  { name:'アメリカ',    flag:'🇺🇸', code:'USA' },
+  { name:'メキシコ',    flag:'🇲🇽', code:'MEX' },
 ];
 
 const MATCHES = [
-  { a:'🇺🇸 USA',         b:'🇲🇽 Mexico',     date:'Jun 12', time:'20:00', venue:'MetLife Stadium, NJ' },
-  { a:'🇧🇷 Brazil',      b:'🇦🇷 Argentina',  date:'Jun 14', time:'21:00', venue:'AT&T Stadium, TX' },
-  { a:'🇫🇷 France',      b:'🇩🇪 Germany',    date:'Jun 15', time:'18:00', venue:'SoFi Stadium, LA' },
-  { a:'🇪🇸 Spain',       b:'🇵🇹 Portugal',   date:'Jun 16', time:'21:00', venue:"Levi's Stadium, SF" },
-  { a:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 England',    b:'🇯🇵 Japan',      date:'Jun 17', time:'20:00', venue:'Estadio Azteca, CDMX' },
-  { a:'🇳🇱 Netherlands', b:'🇸🇳 Senegal',    date:'Jun 18', time:'17:00', venue:'BC Place, Vancouver' },
-  { a:'🇨🇦 Canada',      b:'🇲🇦 Morocco',    date:'Jun 19', time:'19:00', venue:'BMO Field, Toronto' },
-  { a:'🇮🇹 Italy',       b:'🇭🇷 Croatia',    date:'Jun 20', time:'21:00', venue:'Mercedes-Benz Stadium, ATL' },
+  { a:'🇺🇸 アメリカ',     b:'🇲🇽 メキシコ',        date:'6月12日', time:'20:00', venue:'メットライフ・スタジアム, NJ' },
+  { a:'🇧🇷 ブラジル',    b:'🇦🇷 アルゼンチン',     date:'6月14日', time:'21:00', venue:'AT&Tスタジアム, TX' },
+  { a:'🇫🇷 フランス',    b:'🇩🇪 ドイツ',           date:'6月15日', time:'18:00', venue:'SoFiスタジアム, LA' },
+  { a:'🇪🇸 スペイン',    b:'🇵🇹 ポルトガル',       date:'6月16日', time:'21:00', venue:"リーバイス・スタジアム, SF" },
+  { a:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 イングランド', b:'🇯🇵 日本',          date:'6月17日', time:'20:00', venue:'エスタディオ・アステカ, CDMX' },
+  { a:'🇳🇱 オランダ',    b:'🇸🇳 セネガル',         date:'6月18日', time:'17:00', venue:'BCプレイス, バンクーバー' },
+  { a:'🇨🇦 カナダ',      b:'🇲🇦 モロッコ',         date:'6月19日', time:'19:00', venue:'BMOフィールド, トロント' },
+  { a:'🇮🇹 イタリア',    b:'🇭🇷 クロアチア',       date:'6月20日', time:'21:00', venue:'メルセデス・ベンツ・スタジアム, ATL' },
 ];
 
 const LB = [
-  { rank:1,  name:'CristianoFan99', flag:'🇵🇹', nation:'Portugal',  pts:2840 },
-  { rank:2,  name:'SambaKing',      flag:'🇧🇷', nation:'Brazil',    pts:2615 },
-  { rank:3,  name:'ThreeLionsFC',   flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', nation:'England',   pts:2490 },
-  { rank:4,  name:'LaRojaBoss',     flag:'🇪🇸', nation:'Spain',     pts:2330 },
-  { rank:5,  name:'AlbiPro',        flag:'🇦🇷', nation:'Argentina', pts:2210 },
-  { rank:6,  name:'USSoccerFan',    flag:'🇺🇸', nation:'USA',       pts:2105 },
-  { rank:7,  name:'BleusBrigade',   flag:'🇫🇷', nation:'France',    pts:1980 },
-  { rank:8,  name:'AtlasLion_MAR',  flag:'🇲🇦', nation:'Morocco',   pts:1870 },
-  { rank:9,  name:'TigresMex',      flag:'🇲🇽', nation:'Mexico',    pts:1755 },
-  { rank:10, name:'DeutschlandGT',  flag:'🇩🇪', nation:'Germany',   pts:1640 },
+  { rank:1,  name:'CristianoFan99', flag:'🇵🇹', nation:'ポルトガル',    pts:2840 },
+  { rank:2,  name:'SambaKing',      flag:'🇧🇷', nation:'ブラジル',      pts:2615 },
+  { rank:3,  name:'ThreeLionsFC',   flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', nation:'イングランド',  pts:2490 },
+  { rank:4,  name:'LaRojaBoss',     flag:'🇪🇸', nation:'スペイン',      pts:2330 },
+  { rank:5,  name:'AlbiPro',        flag:'🇦🇷', nation:'アルゼンチン',  pts:2210 },
+  { rank:6,  name:'USSoccerFan',    flag:'🇺🇸', nation:'アメリカ',      pts:2105 },
+  { rank:7,  name:'BleusBrigade',   flag:'🇫🇷', nation:'フランス',      pts:1980 },
+  { rank:8,  name:'AtlasLion_MAR',  flag:'🇲🇦', nation:'モロッコ',      pts:1870 },
+  { rank:9,  name:'TigresMex',      flag:'🇲🇽', nation:'メキシコ',      pts:1755 },
+  { rank:10, name:'DeutschlandGT',  flag:'🇩🇪', nation:'ドイツ',        pts:1640 },
 ];
 
 const SCHEDULE = [
-  { stage:'Group Stage',    dates:'Jun 12 – Jul 2, 2026',   icon:'⚽', matches:[
-    { a:'🇺🇸 USA', b:'🇲🇽 Mexico', date:'Jun 12', venue:'MetLife Stadium' },
-    { a:'🇧🇷 Brazil', b:'🇦🇷 Argentina', date:'Jun 14', venue:'AT&T Stadium' },
-    { a:'🇫🇷 France', b:'🇩🇪 Germany', date:'Jun 15', venue:'SoFi Stadium' },
-    { a:'🇪🇸 Spain', b:'🇵🇹 Portugal', date:'Jun 16', venue:"Levi's Stadium" },
+  { stage:'グループステージ',  dates:'2026年6月12日 – 7月2日',  icon:'⚽', matches:[
+    { a:'🇺🇸 アメリカ', b:'🇲🇽 メキシコ', date:'6月12日', venue:'メットライフ・スタジアム' },
+    { a:'🇧🇷 ブラジル', b:'🇦🇷 アルゼンチン', date:'6月14日', venue:'AT&Tスタジアム' },
+    { a:'🇫🇷 フランス', b:'🇩🇪 ドイツ', date:'6月15日', venue:'SoFiスタジアム' },
+    { a:'🇪🇸 スペイン', b:'🇵🇹 ポルトガル', date:'6月16日', venue:"リーバイス・スタジアム" },
   ]},
-  { stage:'Round of 32',    dates:'Jul 4 – Jul 8, 2026',    icon:'🏟️', matches:[
-    { a:'Group A Winner', b:'Group B Runner-up', date:'Jul 4', venue:'MetLife Stadium' },
-    { a:'Group C Winner', b:'Group D Runner-up', date:'Jul 5', venue:'AT&T Stadium' },
-    { a:'Group E Winner', b:'Group F Runner-up', date:'Jul 6', venue:'Estadio Azteca' },
-    { a:'Group G Winner', b:'Group H Runner-up', date:'Jul 8', venue:'SoFi Stadium' },
+  { stage:'ラウンド32',        dates:'2026年7月4日 – 7月8日',   icon:'🏟️', matches:[
+    { a:'グループA1位', b:'グループBランナーアップ', date:'7月4日', venue:'メットライフ・スタジアム' },
+    { a:'グループC1位', b:'グループDランナーアップ', date:'7月5日', venue:'AT&Tスタジアム' },
+    { a:'グループE1位', b:'グループFランナーアップ', date:'7月6日', venue:'エスタディオ・アステカ' },
+    { a:'グループG1位', b:'グループHランナーアップ', date:'7月8日', venue:'SoFiスタジアム' },
   ]},
-  { stage:'Round of 16',    dates:'Jul 11 – Jul 14, 2026',  icon:'🎯', matches:[
-    { a:'R32 Winner 1', b:'R32 Winner 2', date:'Jul 11', venue:'MetLife Stadium' },
-    { a:'R32 Winner 3', b:'R32 Winner 4', date:'Jul 12', venue:'AT&T Stadium' },
-    { a:'R32 Winner 5', b:'R32 Winner 6', date:'Jul 13', venue:'SoFi Stadium' },
-    { a:'R32 Winner 7', b:'R32 Winner 8', date:'Jul 14', venue:"Levi's Stadium" },
+  { stage:'ラウンド16',        dates:'2026年7月11日 – 7月14日', icon:'🎯', matches:[
+    { a:'R32勝者1', b:'R32勝者2', date:'7月11日', venue:'メットライフ・スタジアム' },
+    { a:'R32勝者3', b:'R32勝者4', date:'7月12日', venue:'AT&Tスタジアム' },
+    { a:'R32勝者5', b:'R32勝者6', date:'7月13日', venue:'SoFiスタジアム' },
+    { a:'R32勝者7', b:'R32勝者8', date:'7月14日', venue:"リーバイス・スタジアム" },
   ]},
-  { stage:'Quarter Finals', dates:'Jul 17 – Jul 19, 2026',  icon:'🔥', matches:[
-    { a:'QF1 Winner', b:'QF2 Winner', date:'Jul 17', venue:'MetLife Stadium' },
-    { a:'QF3 Winner', b:'QF4 Winner', date:'Jul 18', venue:'AT&T Stadium' },
-    { a:'QF5 Winner', b:'QF6 Winner', date:'Jul 19', venue:'SoFi Stadium' },
-    { a:'QF7 Winner', b:'QF8 Winner', date:'Jul 19', venue:"Levi's Stadium" },
+  { stage:'準々決勝',           dates:'2026年7月17日 – 7月19日', icon:'🔥', matches:[
+    { a:'QF1勝者', b:'QF2勝者', date:'7月17日', venue:'メットライフ・スタジアム' },
+    { a:'QF3勝者', b:'QF4勝者', date:'7月18日', venue:'AT&Tスタジアム' },
+    { a:'QF5勝者', b:'QF6勝者', date:'7月19日', venue:'SoFiスタジアム' },
+    { a:'QF7勝者', b:'QF8勝者', date:'7月19日', venue:"リーバイス・スタジアム" },
   ]},
-  { stage:'Semi Finals',    dates:'Jul 22 – Jul 23, 2026',  icon:'⚡', matches:[
-    { a:'SF1', b:'SF2', date:'Jul 22', venue:'MetLife Stadium' },
-    { a:'SF3', b:'SF4', date:'Jul 23', venue:'AT&T Stadium' },
+  { stage:'準決勝',             dates:'2026年7月22日 – 7月23日', icon:'⚡', matches:[
+    { a:'SF1', b:'SF2', date:'7月22日', venue:'メットライフ・スタジアム' },
+    { a:'SF3', b:'SF4', date:'7月23日', venue:'AT&Tスタジアム' },
   ]},
-  { stage:'Final',          dates:'Jul 26, 2026',            icon:'🏆', matches:[
-    { a:'Semi-Final Winner 1', b:'Semi-Final Winner 2', date:'Jul 26', venue:'MetLife Stadium, NJ' },
+  { stage:'決勝',               dates:'2026年7月26日',           icon:'🏆', matches:[
+    { a:'準決勝勝者1', b:'準決勝勝者2', date:'7月26日', venue:'メットライフ・スタジアム, NJ' },
   ]},
 ];
 
 let predictions = JSON.parse(localStorage.getItem('fc_pred') || '{}');
 let nation = JSON.parse(localStorage.getItem('fc_nation') || 'null');
 let logoClicks = 0, logoTimer = null;
+let currentPredictIdx = null, currentPredictChoice = null;
 
 const saved = JSON.parse(localStorage.getItem('fc_admin') || 'null');
 if (saved) Object.assign(SETTINGS, saved);
@@ -757,7 +904,32 @@ document.addEventListener('DOMContentLoaded', () => {
   syncAdminUI();
   setupReveal();
   setupNavScroll();
+  startCountdown();
 });
+
+// ── Countdown ─────────────────────────────────
+function startCountdown() {
+  const target = new Date('2026-06-12T20:00:00-04:00'); // MetLife, NJ = EDT
+  function tick() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown-wrap').innerHTML =
+        '<div class="inline-flex items-center gap-2 badge" style="font-size:12px;padding:6px 14px;"><span class="pulse-dot w-1.5 h-1.5 rounded-full bg-gold-l inline-block"></span>キックオフ！ワールドカップ開幕中！</div>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
 
 function setupNavScroll() {
   const nav = document.getElementById('navbar');
@@ -789,10 +961,10 @@ function renderMatches() {
     const [flagA, ...nameA] = m.a.split(' ');
     const [flagB, ...nameB] = m.b.split(' ');
     return `
-    <div class="match-card card p-4 flex flex-col gap-3 hover:-translate-y-0.5 transition-transform">
+    <div class="match-card card p-4 flex flex-col gap-3 hover:-translate-y-1 transition-transform">
       <div class="flex items-center justify-between">
         <span class="text-xs font-semibold" style="color:#C9A84C;font-family:'Instrument Sans',sans-serif;">${m.date} · ${m.time}</span>
-        ${done ? '<span class="badge" style="font-size:9px;">✓ Predicted</span>' : ''}
+        ${done ? '<span class="badge" style="font-size:9px;">✓ 予測済み</span>' : ''}
       </div>
       <div class="flex items-center justify-between gap-2">
         <div class="flex flex-col items-center gap-1 flex-1">
@@ -809,26 +981,98 @@ function renderMatches() {
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         ${m.venue}
       </div>
-      <button onclick="predict(${i})" class="${done ? 'btn-ghost opacity-50 cursor-not-allowed' : 'btn-gold'} w-full py-2.5 text-sm" ${done ? 'disabled' : ''}>
-        ${done ? `✓ ${predictions[i]}` : 'Predict This Match'}
+      <button onclick="openPredictModal(${i})" class="${done ? 'btn-ghost opacity-50 cursor-not-allowed' : 'btn-gold'} w-full py-2.5 text-sm" ${done ? 'disabled' : ''}>
+        ${done ? `✓ ${predictions[i]}` : 'この試合を予測する'}
       </button>
     </div>`;
   }).join('');
 }
 
-function predict(i) {
+// ── Predict Modal ─────────────────────────────
+function openPredictModal(i) {
   if (predictions[i]) return;
   const m = MATCHES[i];
-  const [, ...nA] = m.a.split(' '); const [, ...nB] = m.b.split(' ');
-  const teamA = nA.join(' '), teamB = nB.join(' ');
-  const choice = prompt(`Who wins?\n1. ${teamA}\n2. ${teamB}\n3. Draw\n\nType 1, 2, or 3:`);
-  const map = { '1': teamA, '2': teamB, '3': 'Draw' };
-  if (map[choice]) {
-    predictions[i] = map[choice];
-    localStorage.setItem('fc_pred', JSON.stringify(predictions));
-    renderMatches();
-    toast(`Predicted: ${map[choice]} · +50 pts`);
-  }
+  const [flagA, ...nameAParts] = m.a.split(' ');
+  const [flagB, ...nameBParts] = m.b.split(' ');
+  const teamA = nameAParts.join(' '), teamB = nameBParts.join(' ');
+  currentPredictIdx = i;
+  currentPredictChoice = null;
+
+  document.getElementById('predict-title').textContent = `${teamA} vs ${teamB}`;
+  document.getElementById('predict-venue').textContent = `${m.date} · ${m.time} · ${m.venue}`;
+
+  document.getElementById('predict-choices').innerHTML = `
+    <button class="predict-choice" id="pc-0" onclick="selectPredictChoice(0, '${teamA}', 50)">
+      <div class="flex items-center gap-3">
+        <span class="predict-choice-flag">${flagA}</span>
+        <div>
+          <div class="predict-choice-name">${teamA}</div>
+          <div class="predict-choice-pts">チームの勝利を予測</div>
+        </div>
+      </div>
+      <span class="shimmer font-heading font-bold">+50 pt</span>
+    </button>
+    <button class="predict-choice" id="pc-1" onclick="selectPredictChoice(1, '引き分け', 30)">
+      <div class="flex items-center gap-3">
+        <span class="predict-choice-flag">🤝</span>
+        <div>
+          <div class="predict-choice-name">引き分け</div>
+          <div class="predict-choice-pts">引き分けを予測</div>
+        </div>
+      </div>
+      <span class="shimmer font-heading font-bold">+30 pt</span>
+    </button>
+    <button class="predict-choice" id="pc-2" onclick="selectPredictChoice(2, '${teamB}', 50)">
+      <div class="flex items-center gap-3">
+        <span class="predict-choice-flag">${flagB}</span>
+        <div>
+          <div class="predict-choice-name">${teamB}</div>
+          <div class="predict-choice-pts">チームの勝利を予測</div>
+        </div>
+      </div>
+      <span class="shimmer font-heading font-bold">+50 pt</span>
+    </button>
+  `;
+
+  const btn = document.getElementById('predict-confirm');
+  btn.disabled = true;
+  btn.classList.add('opacity-40', 'cursor-not-allowed');
+  document.getElementById('predict-pts').textContent = '';
+
+  document.getElementById('predict-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectPredictChoice(idx, label, pts) {
+  currentPredictChoice = { label, pts };
+  [0,1,2].forEach(j => {
+    const el = document.getElementById(`pc-${j}`);
+    if (el) el.classList.toggle('selected', j === idx);
+  });
+  const btn = document.getElementById('predict-confirm');
+  btn.disabled = false;
+  btn.classList.remove('opacity-40', 'cursor-not-allowed');
+  document.getElementById('predict-pts').textContent = `+${pts} pt`;
+}
+
+function confirmPredict() {
+  if (currentPredictChoice === null || currentPredictIdx === null) return;
+  predictions[currentPredictIdx] = currentPredictChoice.label;
+  localStorage.setItem('fc_pred', JSON.stringify(predictions));
+  closePredictModal();
+  renderMatches();
+  toast(`予測確定: ${currentPredictChoice.label} · +${currentPredictChoice.pts} pt`);
+  currentPredictIdx = null;
+  currentPredictChoice = null;
+}
+
+function closePredictModal() {
+  document.getElementById('predict-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handlePredictBg(e) {
+  if (e.target === document.getElementById('predict-modal')) closePredictModal();
 }
 
 // ── Nations ─────────────────────────────────
@@ -844,7 +1088,7 @@ function pickNation(code) {
   nation = NATIONS.find(n => n.code === code);
   localStorage.setItem('fc_nation', JSON.stringify(nation));
   renderNations(); updateNationUI();
-  toast(`Representing ${nation.flag} ${nation.name}!`);
+  toast(`${nation.flag} ${nation.name}を応援中！`);
 }
 
 function clearNation() {
@@ -964,7 +1208,7 @@ function submitEmail(e) {
   if (!emails.includes(email)) { emails.push(email); localStorage.setItem('fc_emails', JSON.stringify(emails)); }
   document.getElementById('email-form').classList.add('hidden');
   document.getElementById('email-success').classList.remove('hidden');
-  toast(`Welcome! We'll see you at the World Cup 🏆`);
+  toast('ようこそ！ワールドカップでお会いしましょう 🏆');
   setTimeout(closeLogin, 2800);
 }
 
@@ -986,24 +1230,26 @@ function closeAdmin() {
 function handleAdminBg(e) {
   if (e.target === document.getElementById('admin-modal')) closeAdmin();
 }
+
 function toggleAuth() {
   SETTINGS.authEnabled = !SETTINGS.authEnabled;
-  syncAdminUI(SETTINGS.authEnabled);
+  syncAdminUI();
 }
-function syncAdminUI(enabled = SETTINGS.authEnabled) {
-  const btn = document.getElementById('auth-toggle');
+
+function syncAdminUI(override) {
+  const on = override !== undefined ? override : SETTINGS.authEnabled;
+  const toggle = document.getElementById('auth-toggle');
   const knob = document.getElementById('auth-knob');
-  if (!btn) return;
-  btn.style.background = enabled ? '#C9A84C' : 'rgba(255,255,255,.1)';
-  knob.style.transform = enabled ? 'translateX(21px)' : '';
-  knob.style.background = enabled ? '#070B1A' : 'rgba(240,237,230,.4)';
+  if (toggle) toggle.style.background = on ? '#C9A84C' : 'rgba(255,255,255,.1)';
+  if (knob) knob.style.transform = on ? 'translateX(20px)' : 'translateX(0)';
 }
+
 function saveAdmin() {
   const s = { authEnabled: SETTINGS.authEnabled, supabaseUrl: document.getElementById('sb-url').value.trim(), supabaseAnonKey: document.getElementById('sb-key').value.trim() };
   Object.assign(SETTINGS, s);
   localStorage.setItem('fc_admin', JSON.stringify(s));
   closeAdmin();
-  toast('Settings saved');
+  toast('設定を保存しました');
 }
 
 // ── Toast ─────────────────────────────────────
@@ -1020,7 +1266,7 @@ function toast(msg) {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeLogin(); closeAdmin(); }
+  if (e.key === 'Escape') { closeLogin(); closeAdmin(); closePredictModal(); }
 });
 </script>
 </body>
